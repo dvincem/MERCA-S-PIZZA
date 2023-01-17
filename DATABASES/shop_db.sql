@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jan 15, 2023 at 03:45 PM
+-- Generation Time: Jan 17, 2023 at 02:52 PM
 -- Server version: 10.4.25-MariaDB
 -- PHP Version: 7.4.30
 
@@ -69,6 +69,33 @@ CREATE TABLE `employee` (
 INSERT INTO `employee` (`id`, `employeenumber`, `employeename`, `gender`, `birthdate`, `nationality`, `civilstatus`, `department`, `designation`, `employeestatus`, `picture`, `contactnumber`, `email`, `age`, `paydate`, `dependent`) VALUES
 (1, '1234', 'Lopits  n/a Quillopo', 'Gender', '2000-01-05', 'Filipino', 'Single', 'DCS', 'Computer Science', 'Employed', 'WIN_20221204_23_02_04_Pro.jpg', '09989291436', 'enriquejr.quillopo@gmail.com', '22', '2022-12-03', NULL),
 (2, '201910582', 'Im Nayeon Quillopo', 'Gender', '2000-11-21', 'Filipino', 'Single', 'DCS', 'Information Technology', 'Employed', 'nabong.jpg', '09366946652', 'quillopoenrique@gmail.com', '22', '2022-10-05', NULL);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `logins`
+--
+
+CREATE TABLE `logins` (
+  `id` int(200) NOT NULL,
+  `employee_num` int(11) NOT NULL,
+  `fname` varchar(100) NOT NULL,
+  `lname` varchar(100) NOT NULL,
+  `age` int(11) NOT NULL,
+  `username` varchar(200) NOT NULL,
+  `email` varchar(200) NOT NULL,
+  `pass` varchar(200) NOT NULL,
+  `usertype` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `logins`
+--
+
+INSERT INTO `logins` (`id`, `employee_num`, `fname`, `lname`, `age`, `username`, `email`, `pass`, `usertype`) VALUES
+(9, 1, 'mark', 'dado', 22, 'mark42', 'mark42@merca.com', 'mark123!', 'cashier1'),
+(10, 201910582, 'Enrique', 'Quillopo', 22, 'lopits', 'enriquejr.eq@gmail.com', 'Lopits123!', 'hr'),
+(11, 202010582, 'Christian', 'Acedillo', 22, 'christian', 'christianacedillo@gmail.com', 'christian1!', 'cashier2');
 
 -- --------------------------------------------------------
 
@@ -175,6 +202,12 @@ ALTER TABLE `employee`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `logins`
+--
+ALTER TABLE `logins`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `products`
 --
 ALTER TABLE `products`
@@ -207,6 +240,12 @@ ALTER TABLE `cart`
 --
 ALTER TABLE `employee`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+
+--
+-- AUTO_INCREMENT for table `logins`
+--
+ALTER TABLE `logins`
+  MODIFY `id` int(200) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT for table `products`

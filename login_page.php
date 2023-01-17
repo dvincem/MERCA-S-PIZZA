@@ -1,5 +1,5 @@
 <?php 
-    include 'includes/database.php';
+    include 'includes/config.php';
     session_start();
     unset($_SESSION['username']);
     unset($_SESSION['usertype']);
