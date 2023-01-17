@@ -441,7 +441,7 @@ function cancels()
         <i class="far fa-question-circle"></i>
         <span>User Account</span>
       </a>
-      <a href="login_page.php.php">
+      <a href="login_page.php">
         <i class="far fa-qr-code"></i>
         <span>Logout</span>
       </a>
