@@ -29,9 +29,17 @@ else{
   </head>
   <body style="background-color: #EDE1CF;
     font-family: sans-serif;">
+    <nav class="navbar navbar-expand-md navbar-light bg-dark">
+        <div class="container-xxl">
+            <a href="dashboard.php" class="navbar-brand">
+                <img src="logo.png" alt="" width="30" height="24" class="d-inline-block align-text-top">
+                <span class="fw-bold text-light">MERCA's PIZZA</span>
+            </a>
+        </div>
+    </nav>
   <section id="sides">
     <input type="checkbox" id="check">
-    <label for="check">
+    <label for="check" class="mb-4 mt-1">
       <i class="fas fa-bars" id="btn"></i>
       <i class="fas fa-times" id="cancel"></i>
     </label>

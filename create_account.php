@@ -17,7 +17,7 @@
 <body>
     <nav class="navbar navbar-expand-md navbar-light">
         <div class="container-xxl">
-            <a href="login_page.php" class="navbar-brand">
+            <a href="dashboard.php" class="navbar-brand">
                 <img src="logo.png" alt="" width="30" height="24" class="d-inline-block align-text-top">
                 <span class="fw-bold text-light">MERCA's PIZZA</span>
             </a>

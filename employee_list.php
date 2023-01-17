@@ -32,6 +32,14 @@ if($_SESSION['usertype']!="hr" || !isset($_SESSION['usertype'])){
         });
     </script>
     </head>
+    <nav class="navbar navbar-expand-md navbar-light">
+        <div class="container-xxl">
+            <a href="dashboard.php" class="navbar-brand">
+                <img src="logo.png" alt="" width="30" height="24" class="d-inline-block align-text-top">
+                <span class="fw-bold text-light">MERCA's PIZZA</span>
+            </a>
+        </div>
+    </nav>
 <body style="background-image: url(bg.webp);
             no-repeat center center fixed; 
             -webkit-background-size: cover;
@@ -39,7 +47,7 @@ if($_SESSION['usertype']!="hr" || !isset($_SESSION['usertype'])){
             -o-background-size: cover;
             background-size: cover;">
     <input type="checkbox" id="check">
-    <label for="check">
+    <label for="check" class="mb-4">
       <i class="fas fa-bars" id="btn"></i>
       <i class="fas fa-times" id="cancel"></i>
     </label>
