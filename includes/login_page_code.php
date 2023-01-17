@@ -2,7 +2,7 @@
 
     if(isset($_POST['submit-login'])){
         
-        require 'database.php';
+        require 'config.php';
 
         $Email_User = $_POST ['Email_User'];
         $Password = $_POST ['Password'];

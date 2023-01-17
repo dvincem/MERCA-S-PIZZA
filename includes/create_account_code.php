@@ -2,7 +2,7 @@
 
     if(isset($_POST['create_final'])){
         
-        include 'database.php';
+        include 'config.php';
         
         # variables
         $Fname = $_POST ['Fname'];
