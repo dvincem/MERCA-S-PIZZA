@@ -35,6 +35,9 @@
       Total = document.getElementById('TotAmt').value= "₱ 0.00";
       TotalDisc = document.getElementById('TotDisc').value= "₱ 0.00";
     }
+    function ExitButton() {
+      window.location.href="dashboard.php";
+    }
     function CancelButton() {
       document.getElementById("OrderDits").reset();
       TotalQty = document.getElementById('TotQty').value= 0;
