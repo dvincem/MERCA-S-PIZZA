@@ -112,7 +112,10 @@ if(isset($_GET['delete_all'])){
               </ul>
             </div>
           </nav>
-          <section id="sides">
+
+    <!-- big banner at front -->
+    <div class="main-content">
+    <section id="sides">
             <input type="checkbox" id="check">
             <label for="check">
               <i class="fas fa-bars" id="btn"></i>
@@ -162,9 +165,6 @@ if(isset($_GET['delete_all'])){
               </a>
             </div>
           </section>
-
-    <!-- big banner at front -->
-    <div class="main-content">
             <div class="content">
                   <h1>BEST PIZZA</h1>
                   <h2>IN TOWN</h2>

@@ -37,7 +37,13 @@ else{
             </a>
         </div>
     </nav>
-  <section id="sides">
+    <main>
+        <center>
+
+</center>
+<!-- big banner at front -->
+<div class="main-content">
+<section id="sides">
     <input type="checkbox" id="check">
     <label for="check" class="mb-4 mt-1">
       <i class="fas fa-bars" id="btn"></i>
@@ -87,15 +93,6 @@ else{
       </a>
     </div>
     </section>
-    <main>
-        <br>
-        <br>
-        
-        <center>
-
-</center>
-<!-- big banner at front -->
-<div class="main-content">
             <div class="content">
                   <h1>Welcome to</h1>
                   <br>

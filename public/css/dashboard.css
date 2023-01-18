@@ -38,7 +38,7 @@
   transition: all .5s ease;
   z-index: 1;
 }
-a.active,a:hover{
+.sidebar a.active, .sidebar a:hover{
   border-left: 5px solid #b93632;
   color: #b93632;
 }
