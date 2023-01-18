@@ -1,3 +1,7 @@
+<?php
+session_start();
+if($_SESSION['usertype']=="cashier1" || $_SESSION['usertype']=="superadmin"){
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -13,7 +17,8 @@
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
     <!-- bootstrap link -->
-    
+    <link rel="stylesheet" href="../css/dashboard.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"/>
     <!-- font -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -48,11 +53,80 @@
                 </li>
               </ul>
             </div>
-            <a class="nav-link" href="logout.php" id="first">Log Out</a>
           </nav>
           
           <!-- New main content under maintenance page -->
           <div class="main-content">
+          <section id="sides">
+    <input type="checkbox" id="check">
+    <label for="check" class="mb-4 mt-1">
+      <i class="fas fa-bars" id="btn"></i>
+      <i class="fas fa-times" id="cancel"></i>
+    </label>
+    <div class="sidebar">
+      <header>Dashboard</header>
+      <a href="../dashboard.php" >
+        <i class="fas fa-qrcode"></i>
+        <span>Dashboard</span>
+      </a>
+      <?php if($_SESSION['usertype']=="cashier1" || $_SESSION['usertype']=="superadmin" )
+      {
+        ?>
+      <a href="index1.php" class="active">
+        <i class="fas fa-link"></i>
+        <span>POS A</span>
+      </a>
+      <a href="../sales_pos_a.php">
+        <i class="fas fa-stream"></i>
+        <span>Sales POS A</span>
+      </a>
+      <?php 
+      }
+      if($_SESSION['usertype']=="hr" || $_SESSION['usertype']=="superadmin")
+      {
+      ?>
+
+      <a href="../payroll_emplist.php">
+         <i class="fas fa-calendar"></i>
+        <span>Payroll</span>
+      </a>
+      <a href="../payroll_report.php">
+        <i class="fas fa-stream"></i>
+        <span>Payroll Report</span>
+      </a>
+      <a href="employee_list.php">
+        <i class="far fa-question-circle"></i>
+        <span>Employee List</span>
+      </a>
+      <?php }
+      if($_SESSION['usertype']=="cashier2" || $_SESSION['usertype']=="superadmin"){
+        ?>
+      <a href="index2.php">
+      <i class="fas fa-link"></i>
+        <span>POS B</span>
+      </a>
+      <a href="../sales_pos_b.php">
+      <i class="fas fa-stream"></i>
+        <span>Sales POS B</span>
+      </a>
+      <?php }
+      if($_SESSION['usertype']=="superadmin"){
+        ?>
+        <a href="../create_account.php">
+      <i class="fas fa-link"></i>
+        <span>Create Account</span>
+      </a>
+      <?php }?>
+      <a href="#.php">
+        <i class="far fa-question-circle"></i>
+        <span>User Account</span>
+      </a>
+      <a href="../login_page.php">
+        <i class="far fa-qr-code"></i>
+        <span>Logout</span>
+      </a>
+    </div>
+    </section>
               <div class="content">
                   <h2>WELCOME CASHIER!</h2>
                   <br>
@@ -99,3 +173,10 @@
 
 </body>
 </html>
+<?php 
+}
+else {
+  echo '<script>alert("Unauthorized Web Access")</script>';
+  echo '<script>window.location.href="../dashboard.php"</script>';
+}
+?>

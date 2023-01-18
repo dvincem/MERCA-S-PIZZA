@@ -1,9 +1,5 @@
 @import url('https://fonts.googleapis.com/css?family=Montserrat:600|Open+Sans:600&display=swap');
-*{
-  margin: 0;
-  padding: 0;
-  text-decoration: none;
-}
+
 .sidebar{
   position: fixed;
   width: 240px;
@@ -38,7 +34,7 @@
   transition: all .5s ease;
   z-index: 1;
 }
-a.active,a:hover{
+.sidebar a.active, .sidebar a:hover{
   border-left: 5px solid #b93632;
   color: #b93632;
 }

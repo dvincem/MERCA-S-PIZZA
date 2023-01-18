@@ -29,15 +29,40 @@ else{
   </head>
   <body style="background-color: #EDE1CF;
     font-family: sans-serif;">
-    <nav class="navbar navbar-expand-md navbar-light bg-dark">
-        <div class="container-xxl">
-            <a href="dashboard.php" class="navbar-brand">
-                <img src="logo.png" alt="" width="30" height="24" class="d-inline-block align-text-top">
-                <span class="fw-bold text-light">MERCA's PIZZA</span>
-            </a>
-        </div>
-    </nav>
-  <section id="sides">
+    <div id="container-background">
+      
+        <nav class="navbar navbar-expand-md" id="navbar-color">
+            <!-- Brand -->
+            <a class="navbar-brand" href="#" id="logo-color"><i><img src="./icon/logo.png" alt=""></i>MERCA'S PIZZA</a>
+          
+            <!-- Toggler/collapsibe Button -->
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
+              <span><i><img src="./icon/menu.png" alt="" id="menu-color"></i></span>
+            </button>
+          
+            <!-- Navbar links -->
+            <div class="collapse navbar-collapse" id="collapsibleNavbar">
+              <ul class="navbar-nav">
+                <li class="nav-item">
+                </li>
+                <li class="nav-item">
+                </li>
+                <li class="nav-item">
+                </li>
+                <li class="nav-item">
+                </li>
+                <li class="nav-item">
+                </li>
+              </ul>
+            </div>
+          </nav>
+    <main>
+        <center>
+
+</center>
+<!-- big banner at front -->
+<div class="main-content">
+<section id="sides">
     <input type="checkbox" id="check">
     <label for="check" class="mb-4 mt-1">
       <i class="fas fa-bars" id="btn"></i>
@@ -49,7 +74,10 @@ else{
         <i class="fas fa-qrcode"></i>
         <span>Dashboard</span>
       </a>
-      <a href="index.php" >
+      <?php if($_SESSION['usertype']=="cashier1" || $_SESSION['usertype']=="superadmin" )
+      {
+        ?>
+      <a href="main/index1.php" >
         <i class="fas fa-link"></i>
         <span>POS A</span>
       </a>
@@ -57,6 +85,12 @@ else{
         <i class="fas fa-stream"></i>
         <span>Sales POS A</span>
       </a>
+      <?php 
+      }
+      if($_SESSION['usertype']=="hr" || $_SESSION['usertype']=="superadmin")
+      {
+      ?>
+
       <a href="payroll_emplist.php">
          <i class="fas fa-calendar"></i>
         <span>Payroll</span>
@@ -69,7 +103,10 @@ else{
         <i class="far fa-question-circle"></i>
         <span>Employee List</span>
       </a>
-      <a href="Wp3POS.php">
+      <?php }
+      if($_SESSION['usertype']=="cashier2" || $_SESSION['usertype']=="superadmin"){
+        ?>
+      <a href="main/index2.php">
       <i class="fas fa-link"></i>
         <span>POS B</span>
       </a>
@@ -77,7 +114,15 @@ else{
       <i class="fas fa-stream"></i>
         <span>Sales POS B</span>
       </a>
-      <a href="employee_list.php">
+      <?php }
+      if($_SESSION['usertype']=="superadmin"){
+        ?>
+        <a href="create_account.php">
+      <i class="fas fa-link"></i>
+        <span>Create Account</span>
+      </a>
+      <?php }?>
+      <a href="#.php">
         <i class="far fa-question-circle"></i>
         <span>User Account</span>
       </a>
@@ -87,15 +132,6 @@ else{
       </a>
     </div>
     </section>
-    <main>
-        <br>
-        <br>
-        
-        <center>
-
-</center>
-<!-- big banner at front -->
-<div class="main-content">
             <div class="content">
                   <h1>Welcome to</h1>
                   <br>

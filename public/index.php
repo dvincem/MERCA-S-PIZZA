@@ -63,8 +63,7 @@ if(isset($_GET['delete_all'])){
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
     <!-- bootstrap link -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"/>
-    <link rel="stylesheet" href="css/dashboard.css">
+    
     <!-- font -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -73,6 +72,7 @@ if(isset($_GET['delete_all'])){
     
 </head>
 <body>
+
     <?php
     if(isset($message)){
     foreach($message as $message){
@@ -82,7 +82,7 @@ if(isset($_GET['delete_all'])){
     ?>
     
     <div id="cantainer-background">
-          <nav class="navbar navbar-expand-md" id="navbar-color" style="z-index:-1;">
+        <nav class="navbar navbar-expand-md" id="navbar-color">
             <!-- Brand -->
             <a class="navbar-brand" href="https://www.facebook.com/mercaspizza" id="logo-color"><i><img src="./icon/logo.png" alt=""></i>MERCA'S PIZZA</a>
           
@@ -112,56 +112,6 @@ if(isset($_GET['delete_all'])){
               </ul>
             </div>
           </nav>
-          <section id="sides">
-            <input type="checkbox" id="check">
-            <label for="check">
-              <i class="fas fa-bars" id="btn"></i>
-              <i class="fas fa-times" id="cancel"></i>
-            </label>
-            <div class="sidebar">
-              <header>POS A</header>
-              <a href="dashboard.php">
-                <i class="fas fa-qrcode"></i>
-                <span>Dashboard</span>
-              </a>
-              <a href="index.php" class="active">
-                <i class="fas fa-link"></i>
-                <span>POS A</span>
-              </a>
-              <a href="sales_pos_a.php">
-                <i class="fas fa-stream"></i>
-                <span>Sales POS A</span>
-              </a>
-              <a href="payroll_emplist.php">
-                <i class="fas fa-calendar"></i>
-                <span>Payroll</span>
-              </a>
-              <a href="payroll_report.php">
-                <i class="fas fa-stream"></i>
-                <span>Payroll Report</span>
-              </a>
-              <a href="employee_list.php">
-                <i class="far fa-question-circle"></i>
-                <span>Employee List</span>
-              </a>
-              <a href="Wp3POS.php">
-              <i class="fas fa-link"></i>
-                <span>POS B</span>
-              </a>
-              <a href="sales_pos_b.php">
-              <i class="fas fa-stream"></i>
-                <span>Sales POS B</span>
-              </a>
-              <a href="employee_list.php">
-                <i class="far fa-question-circle"></i>
-                <span>User Account</span>
-              </a>
-              <a href="login_page.php">
-                <i class="far fa-qr-code"></i>
-                <span>Logout</span>
-              </a>
-            </div>
-          </section>
 
     <!-- big banner at front -->
     <div class="main-content">

@@ -6,7 +6,7 @@ the datas with popup conditions as well as remove/delete the product in cart it 
 include 'config.php';
 
 session_start();
-if($_SESSION['usertype']=="cashier1"){
+if($_SESSION['usertype']=="cashier1" || $_SESSION['usertype']=="superadmin"){
 $user_id = 1;
 if(isset($_POST['add_to_cart'])){
 
@@ -54,7 +54,7 @@ if(isset($_GET['delete_all'])){
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Merca's Pizza</title>
+    <title>POS A</title>
     <link rel="shortcut icon" type="image" href="icon/logo.png">
     <link rel="stylesheet" href="style.css">
     <!-- bootstrap link -->
@@ -184,5 +184,5 @@ if(isset($_GET['delete_all'])){
 <?php }
 else{
     echo '<script>alert("Unauthorized Web Access")</script>';
-  echo '<script>window.location.href="login_page.php"</script>';
+    echo '<script>window.location.href="../dashboard.php"</script>';
 } ?>

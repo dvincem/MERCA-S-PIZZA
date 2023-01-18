@@ -1,11 +1,9 @@
 <?php
 include "config.php";
 session_start();
-if(!isset($_SESSION['usertype'])){
-  echo '<script>alert("Unauthorized Web Access")</script>';
-  echo '<script>window.location.href="login_page.php"</script>';
-}
-else{
+if($_SESSION['usertype']=="cashier1" || $_SESSION['usertype']=="superadmin"){
+  
+
 ?>
 <!DOCTYPE html>
 <!-- Created By CodingNepal -->
@@ -42,54 +40,74 @@ else{
             -o-background-size: cover;
             background-size: cover;">
     <section id="sides">
-        <input type="checkbox" id="check">
-        <label for="check" class="mb-5">
-        <i class="fas fa-bars" id="btn"></i>
-        <i class="fas fa-times" id="cancel"></i>
-        </label>
-        <div class="sidebar">
-            <header>Dashboard</header>
-            <a href="dashboard.php" class="active">
-                <i class="fas fa-qrcode"></i>
-                <span>Dashboard</span>
-            </a>
-            <a href="index.php" >
-                <i class="fas fa-link"></i>
-                <span>POS A</span>
-            </a>
-            <a href="sales_pos_a.php">
-                <i class="fas fa-stream"></i>
-                <span>Sales POS A</span>
-            </a>
-            <a href="payroll_emplist.php">
-                <i class="fas fa-calendar"></i>
-                <span>Payroll</span>
-            </a>
-            <a href="payroll_report.php">
-                <i class="fas fa-stream"></i>
-                <span>Payroll Report</span>
-            </a>
-            <a href="employee_list.php">
-                <i class="far fa-question-circle"></i>
-                <span>Employee List</span>
-            </a>
-            <a href="Wp3POS.php">
-            <i class="fas fa-link"></i>
-                <span>POS B</span>
-            </a>
-            <a href="sales_pos_b.php">
-            <i class="fas fa-stream"></i>
-                <span>Sales POS B</span>
-            </a>
-            <a href="employee_list.php">
-                <i class="far fa-question-circle"></i>
-                <span>User Account</span>
-            </a>
-            <a href="login_page.php">
-                <i class="far fa-qr-code"></i>
-                <span>Logout</span>
-            </a>
-        </div>
+    <input type="checkbox" id="check">
+    <label for="check" class="mb-4 mt-1">
+      <i class="fas fa-bars" id="btn"></i>
+      <i class="fas fa-times" id="cancel"></i>
+    </label>
+    <div class="sidebar">
+      <header>Dashboard</header>
+      <a href="dashboard.php">
+        <i class="fas fa-qrcode"></i>
+        <span>Dashboard</span>
+      </a>
+      <?php if($_SESSION['usertype']=="cashier1" || $_SESSION['usertype']=="superadmin" )
+      {
+        ?>
+      <a href="main/index1.php" >
+        <i class="fas fa-link"></i>
+        <span>POS A</span>
+      </a>
+      <a href="sales_pos_a.php" class="active">
+        <i class="fas fa-stream"></i>
+        <span>Sales POS A</span>
+      </a>
+      <?php 
+      }
+      if($_SESSION['usertype']=="hr" || $_SESSION['usertype']=="superadmin")
+      {
+      ?>
+
+      <a href="payroll_emplist.php">
+         <i class="fas fa-calendar"></i>
+        <span>Payroll</span>
+      </a>
+      <a href="payroll_report.php">
+        <i class="fas fa-stream"></i>
+        <span>Payroll Report</span>
+      </a>
+      <a href="employee_list.php">
+        <i class="far fa-question-circle"></i>
+        <span>Employee List</span>
+      </a>
+      <?php }
+      if($_SESSION['usertype']=="cashier2" || $_SESSION['usertype']=="superadmin"){
+        ?>
+      <a href="main/index2.php">
+      <i class="fas fa-link"></i>
+        <span>POS B</span>
+      </a>
+      <a href="sales_pos_b.php">
+      <i class="fas fa-stream"></i>
+        <span>Sales POS B</span>
+      </a>
+      <?php }
+      if($_SESSION['usertype']=="superadmin"){
+        ?>
+        <a href="create_account.php">
+      <i class="fas fa-link"></i>
+        <span>Create Account</span>
+      </a>
+      <?php }?>
+      <a href="#.php">
+        <i class="far fa-question-circle"></i>
+        <span>User Account</span>
+      </a>
+      <a href="login_page.php">
+        <i class="far fa-qr-code"></i>
+        <span>Logout</span>
+      </a>
+    </div>
     </section>
 <main>
     <br>
@@ -256,4 +274,8 @@ else{
 </body>
 </html>
 <?php  }
+else{
+    echo '<script>alert("Unauthorized Web Access")</script>';
+  echo '<script>window.location.href="dashboard.php"</script>';
+}
 ?>

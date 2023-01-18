@@ -1,7 +1,7 @@
 <?php 
 include "config.php";
 session_start();
-if($_SESSION['usertype']=="hr"){
+if($_SESSION['usertype']=="hr" || $_SESSION['usertype']=="superadmin"){
   if(isset($_GET['id'])){
     $id = trim($_GET['id'])-0;
     $sql = "SELECT * FROM employee WHERE id=$id";
@@ -409,7 +409,7 @@ function cancels()
         <i class="fas fa-qrcode"></i>
         <span>Dashboard</span>
       </a>
-      <a href="index.php" >
+      <a href="main/index1.php" >
         <i class="fas fa-link"></i>
         <span>POS A</span>
       </a>
@@ -429,7 +429,7 @@ function cancels()
         <i class="far fa-question-circle"></i>
         <span>Employee List</span>
       </a>
-      <a href="Wp3POS.php">
+      <a href="main/index2.php">
       <i class="fas fa-link"></i>
         <span>POS B</span>
       </a>

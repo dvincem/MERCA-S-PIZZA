@@ -1,12 +1,7 @@
 <?php
 include "config.php";
 session_start();
-if($_SESSION['usertype']!="hr" || !isset($_SESSION['usertype'])){ 
-    echo '<script>alert("Unauthorized Web Access")</script>';
-    echo '<script>window.location.href="dashboard.php"</script>';
-}else{
-   
-
+if($_SESSION['usertype']=="hr" || $_SESSION['usertype']=="superadmin"){ 
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -27,7 +22,7 @@ if($_SESSION['usertype']!="hr" || !isset($_SESSION['usertype'])){
         $(document).ready(function(){
             $('table tr').click(function(){
                 var id = $(this).attr('row_id');
-                window.open("http://localhost/MERCAPIZZA/viewpayroll.php?id=" + id);
+                window.open("http://localhost/MERCAPIZZA/public/viewpayroll.php?id=" + id);
             });
         });
     </script>
@@ -46,18 +41,22 @@ if($_SESSION['usertype']!="hr" || !isset($_SESSION['usertype'])){
             -moz-background-size: cover;
             -o-background-size: cover;
             background-size: cover;">
+    <section id="sides">
     <input type="checkbox" id="check">
-    <label for="check" class="mb-4">
+    <label for="check" class="mb-4 mt-1">
       <i class="fas fa-bars" id="btn"></i>
       <i class="fas fa-times" id="cancel"></i>
     </label>
     <div class="sidebar">
-      <header>Employee List</header>
-      <a href="dashboard.php" >
+      <header>Dashboard</header>
+      <a href="dashboard.php">
         <i class="fas fa-qrcode"></i>
         <span>Dashboard</span>
       </a>
-      <a href="index.php" >
+      <?php if($_SESSION['usertype']=="cashier1" || $_SESSION['usertype']=="superadmin" )
+      {
+        ?>
+      <a href="main/index1.php" >
         <i class="fas fa-link"></i>
         <span>POS A</span>
       </a>
@@ -65,7 +64,13 @@ if($_SESSION['usertype']!="hr" || !isset($_SESSION['usertype'])){
         <i class="fas fa-stream"></i>
         <span>Sales POS A</span>
       </a>
-      <a href="payroll_emplist.php" >
+      <?php 
+      }
+      if($_SESSION['usertype']=="hr" || $_SESSION['usertype']=="superadmin")
+      {
+      ?>
+
+      <a href="payroll_emplist.php">
          <i class="fas fa-calendar"></i>
         <span>Payroll</span>
       </a>
@@ -73,11 +78,14 @@ if($_SESSION['usertype']!="hr" || !isset($_SESSION['usertype'])){
         <i class="fas fa-stream"></i>
         <span>Payroll Report</span>
       </a>
-      <a href="employee_list.php" >
+      <a href="employee_list.php">
         <i class="far fa-question-circle"></i>
         <span>Employee List</span>
       </a>
-      <a href="Wp3POS.php">
+      <?php }
+      if($_SESSION['usertype']=="cashier2" || $_SESSION['usertype']=="superadmin"){
+        ?>
+      <a href="main/index2.php">
       <i class="fas fa-link"></i>
         <span>POS B</span>
       </a>
@@ -85,7 +93,15 @@ if($_SESSION['usertype']!="hr" || !isset($_SESSION['usertype'])){
       <i class="fas fa-stream"></i>
         <span>Sales POS B</span>
       </a>
-      <a href="employee_list.php">
+      <?php }
+      if($_SESSION['usertype']=="superadmin"){
+        ?>
+        <a href="create_account.php">
+      <i class="fas fa-link"></i>
+        <span>Create Account</span>
+      </a>
+      <?php }?>
+      <a href="#.php">
         <i class="far fa-question-circle"></i>
         <span>User Account</span>
       </a>
@@ -94,6 +110,7 @@ if($_SESSION['usertype']!="hr" || !isset($_SESSION['usertype'])){
         <span>Logout</span>
       </a>
     </div>
+    </section>
     <br>
     <br>
     <br>
@@ -123,21 +140,28 @@ if($_SESSION['usertype']!="hr" || !isset($_SESSION['usertype'])){
   </thead>
   <tbody>
     <?php 
-    $query = "SELECT * FROM employee";
+    $query = "SELECT * FROM payroll";
     $run_query = mysqli_query($conn, $query) or die(mysqli_error($conn));
     if (mysqli_num_rows($run_query) > 0){
     while ($row = mysqli_fetch_array($run_query)){
-        $id = $row['id'];
-        $employeeid = $row['employeenumber'];
-        $employeename = $row['employeename'];
-        $civilstatus = $row['civilstatus'];
-        $designation = $row['designation'];
-        $department = $row['department'];
-        $dependent = $row['dependent'];
-        $id = $row['id'];
-        $employeestatus = $row['employeestatus'];
+        $id = $row['payroll_id'];
+        $employeeid = $row['employeeid_fk'];
+        $query1 = "SELECT * FROM employee where id='$employeeid'";
+        $run_query1 = mysqli_query($conn, $query1) or die(mysqli_error($conn));
+        if (mysqli_num_rows($run_query1) > 0){
+         while ($fetch = mysqli_fetch_array($run_query1)){
+          $employeenumber = $fetch['employeenumber'];
+        $employeename = $fetch['employeename'];
+        $civilstatus = $fetch['civilstatus'];
+        $designation = $fetch['designation'];
+        $department = $fetch['department'];
+        $dependent = $fetch['dependent'];
+        $employeestatus = $fetch['employeestatus'];
+
+         }
+        }
         echo '<tr row_id="'.$id.'">';
-        echo '<th scope="row">'.$employeeid.'</th>';
+        echo '<th scope="row">'.$employeenumber.'</th>';
         echo '<td>'.$employeename.'</td>';
         echo '<td>'.$civilstatus.'</td>';
         echo '<td>'.$designation.'</td>';
@@ -165,4 +189,10 @@ if($_SESSION['usertype']!="hr" || !isset($_SESSION['usertype'])){
 
 </body>
 </html>
-<?php }?>
+<?php 
+}
+else{
+  echo '<script>alert("Unauthorized Web Access")</script>';
+    echo '<script>window.location.href="dashboard.php"</script>';
+}
+?>
