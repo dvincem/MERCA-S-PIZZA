@@ -4,12 +4,63 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="styles1.css" />
+    <link rel="stylesheet" href="css/dashboard.css">
     <link rel="javascript" href="script.js" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"/>
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons">
     <title>Webpage 3 POS</title>
   </head>
   <body>
-
+  <section id="sides">
+    <input type="checkbox" id="check">
+    <label for="check" class="mb-5 mx-5">
+      <i class="fas fa-bars" id="btn"></i>
+      <i class="fas fa-times" id="cancel"></i>
+    </label>
+    <div class="sidebar">
+      <header>Payroll</header>
+      <a href="dashboard.php" >
+        <i class="fas fa-qrcode"></i>
+        <span>Dashboard</span>
+      </a>
+      <a href="index.php" >
+        <i class="fas fa-link"></i>
+        <span>POS A</span>
+      </a>
+      <a href="sales_pos_a.php">
+        <i class="fas fa-stream"></i>
+        <span>Sales POS A</span>
+      </a>
+      <a href="payroll_emplist.php" >
+         <i class="fas fa-calendar"></i>
+        <span>Payroll</span>
+      </a>
+      <a href="payroll_report.php">
+        <i class="fas fa-stream"></i>
+        <span>Payroll Report</span>
+      </a>
+      <a href="employee_list.php">
+        <i class="far fa-question-circle"></i>
+        <span>Employee List</span>
+      </a>
+      <a href="Wp3POS.php">
+      <i class="fas fa-link"></i>
+        <span>POS B</span>
+      </a>
+      <a href="sales_pos_b.php" class="active">
+      <i class="fas fa-stream"></i>
+        <span>Sales POS B</span>
+      </a>
+      <a href="employee_list.php">
+        <i class="far fa-question-circle"></i>
+        <span>User Account</span>
+      </a>
+      <a href="login_page.php">
+        <i class="far fa-qr-code"></i>
+        <span>Logout</span>
+      </a>
+    </div>
+    </section>
   <script>
     var CompDiscedAmnt = "";
     var CompDiscAmnt = "";

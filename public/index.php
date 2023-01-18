@@ -95,7 +95,7 @@ if(isset($_GET['delete_all'])){
             <div class="collapse navbar-collapse" id="collapsibleNavbar">
               <ul class="navbar-nav">
                 <li class="nav-item">
-                  <a class="nav-link" href="" id="first">Home</a>
+                  <a class="nav-link" href="dashboard.php" id="first">Home</a>
                 </li>
                 <li class="nav-item">
                   <a class="nav-link" href="#cards">Promo</a>
