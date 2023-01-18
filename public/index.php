@@ -63,6 +63,7 @@ if(isset($_GET['delete_all'])){
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
     <!-- bootstrap link -->
+    
     <!-- font -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -71,6 +72,7 @@ if(isset($_GET['delete_all'])){
     
 </head>
 <body>
+
     <?php
     if(isset($message)){
     foreach($message as $message){
@@ -80,7 +82,7 @@ if(isset($_GET['delete_all'])){
     ?>
     
     <div id="cantainer-background">
-          <nav class="navbar navbar-expand-md" id="navbar-color" style="z-index:-1;">
+        <nav class="navbar navbar-expand-md" id="navbar-color">
             <!-- Brand -->
             <a class="navbar-brand" href="https://www.facebook.com/mercaspizza" id="logo-color"><i><img src="./icon/logo.png" alt=""></i>MERCA'S PIZZA</a>
           
@@ -93,7 +95,7 @@ if(isset($_GET['delete_all'])){
             <div class="collapse navbar-collapse" id="collapsibleNavbar">
               <ul class="navbar-nav">
                 <li class="nav-item">
-                  <a class="nav-link" href="dashboard.php" id="first">Home</a>
+                  <a class="nav-link" href="" id="first">Home</a>
                 </li>
                 <li class="nav-item">
                   <a class="nav-link" href="#cards">Promo</a>
