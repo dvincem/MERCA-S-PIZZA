@@ -84,7 +84,7 @@ if(isset($_GET['delete_all'])){
     <div id="cantainer-background">
         <nav class="navbar navbar-expand-md" id="navbar-color">
             <!-- Brand -->
-            <a class="navbar-brand" href="https://www.facebook.com/mercaspizza" id="logo-color"><i><img src="./icon/logo.png" alt=""></i>MERCA'S PIZZA</a>
+            <a class="navbar-brand" href="dashboard.php" id="logo-color"><i><img src="./icon/logo.png" alt=""></i>MERCA'S PIZZA</a>
           
             <!-- Toggler/collapsibe Button -->
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">

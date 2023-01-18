@@ -115,9 +115,9 @@ if($_SESSION['usertype']=="cashier1" || $_SESSION['usertype']=="superadmin"){
 <section id="main">
 
     <div class="container-sm form-group border p-3  justify-content-center border-dark rounded" id="empdetailscontainer" style="background-color: #EDE1CF;">
-        <div class="row my-2 gy-5 gx-10">
+        <div class="row my-2">
             <div class="col-lg-4">
-                <h3 style= "font-weight: bold;">Sales Summary of POS A List</h3>
+                <h3 style= "font-weight: bold;"><i class="bi bi-receipt"></i> Sales Summary of POS A</h3>
             </div>
         </div>
         <form action="includes/search_code.php" method="POST">
@@ -126,10 +126,10 @@ if($_SESSION['usertype']=="cashier1" || $_SESSION['usertype']=="superadmin"){
                     <label for="searchNum" class="col-form-label">Sales Number:</label>
                 </div>
                 <div class="col-auto">
-                    <input type="search" id="searchNum" name="searchNum"class="form-control">
+                    <input type="search" id="searchNum" name="searchNum"class="form-control" placeholder="1234567890">
                 </div>
                 <div class="col-auto">
-                    <button type="submit" id="search_pos_a" name="search_pos_a" class="btn-sm btn-danger">Search</button>
+                    <button type="submit" id="search_pos_a" name="search_pos_a" class="btn-sm btn-danger"><i class="bi bi-search"></i></button>
                 </div>
             </div>
         </form>

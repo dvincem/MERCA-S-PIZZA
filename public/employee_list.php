@@ -125,7 +125,7 @@ if($_SESSION['usertype']=="hr" || $_SESSION['usertype']=="superadmin"){
     <!-- ADDED HEADER -->
     <div class="row my-2">
       <div class="col-lg-4">
-          <h2 style= "font-weight: bold;">Employee List</h2>
+          <h2 style= "font-weight: bold;"><i class="bi bi-person-lines-fill"></i> Employee List</h2>
           <a href="employee_add.php" class="btn btn-sm btn-dark"><i class="bi bi-person-plus"></i> Add New Employee</a>
       </div>
     </div>
@@ -138,10 +138,10 @@ if($_SESSION['usertype']=="hr" || $_SESSION['usertype']=="superadmin"){
               <label for="searchNum" class="col-form-label">Employee Number:</label>
           </div>
           <div class="col-auto">
-              <input type="search" id="searchNum" name="searchNum"class="form-control">
+              <input type="search" id="searchNum" name="searchNum"class="form-control" placeholder="1234567890">
           </div>
           <div class="col-auto">
-              <button type="submit" id="search_emp_list" name="search_emp_list" class="btn btn-sm btn-danger">Search</button>
+              <button type="submit" id="search_emp_list" name="search_emp_list" class="btn btn-sm btn-danger"><i class="bi bi-search"></i></button>
           </div>
       </div>
     </form>

@@ -132,7 +132,7 @@ if($_SESSION['usertype']=="cashier2" || $_SESSION['usertype']=="superadmin"){
                   <h2>WELCOME CASHIER!</h2>
                   <br>
                   <h4>click the button below to access POS.</h4>
-                  <a href="" id="btn1" class="btn"><button>MPOS2 ver 1.0</button></a>
+                  <div href="" id="btn1" class="btn"><button>MPOS2 ver 1.0</button></div>
 
                   <script>
                   let other = null; //will be our window reference

@@ -17,8 +17,10 @@ if(isset($_POST['add_to_cart'])){
    $product_discount = $_POST['product_discount'];
    $select_cart = mysqli_query($conn, "SELECT * FROM `cart` WHERE name = '$product_name' AND user_id = '$user_id'") or die('query failed');
 
+   // edit.. if same product added to cart.. it will just add quantity -dado
    if(mysqli_num_rows($select_cart) > 0){
-      $message[] = 'product already added to cart!';
+      mysqli_query($conn, "UPDATE `cart` SET quantity = (quantity+$product_quantity) WHERE name = '$product_name'") or die('query failed');
+      $message[] = 'product successfully added to cart!';
    }else{
       mysqli_query($conn, "INSERT INTO `cart`(user_id, name, price, image, quantity, discount) VALUES('$user_id', '$product_name', '$product_price', '$product_image', '$product_quantity', '$product_discount')") or die('query failed');
       $message[] = 'product successfully added to cart!';
@@ -33,18 +35,23 @@ if(isset($_POST['update_cart'])){
    $message[] = 'cart quantity updated successfully!';
 }
 
+// remove function fixed -dado
 if(isset($_GET['remove'])){
    $remove_id = $_GET['remove'];
    mysqli_query($conn, "DELETE FROM `cart` WHERE id = '$remove_id'") or die('query failed');
-   header('location:index.php');
+   $message[] = 'Product has been removed succesfully!';
+   //header("location: pos1.php");  -- header not needed anymore --
 }
   
+// delete all function fixed -dado
 if(isset($_GET['delete_all'])){
    mysqli_query($conn, "DELETE FROM `cart` WHERE user_id = '$user_id'") or die('query failed');
-   header('location:index.php');
+   $message[] = 'All items has been removed succesfully!';
+   //header('location:index.php');  -- header not needed anymore --
 }
 
-?>
+
+?>                                       
 <!-- end of php code -->
 
 
@@ -153,7 +160,9 @@ if(isset($_GET['delete_all'])){
                      </form>
                   </td>
                   <td>₱<?php echo $sub_total = ($newprice * $fetch_cart['quantity']); ?></td>
-                  <td><a href="index.php?remove=<?php echo $fetch_cart['id']; ?>" class="delete-btn" onclick="return confirm('remove item from cart?');">remove</a></td>
+
+                  <!-- changed href from index.php to pos1.php (remove button fixed) -dado -->
+                  <td><a href="pos1.php?remove=<?php echo $fetch_cart['id']; ?>" class="delete-btn" onclick="return confirm('remove item from cart?');">remove</a></td>
                </tr>
             <?php
                $grand_total += $sub_total;
@@ -166,7 +175,7 @@ if(isset($_GET['delete_all'])){
             <tr class="table-bottom">
                <td colspan="6">Grand Total :</td> 
                <td>₱<?php echo $grand_total; ?></td>
-               <td><a href="index.php?delete_all" onclick="return confirm('delete all from cart?');" class="delete-btn <?php echo ($grand_total > 1)?'':'disabled'; ?>">delete all</a></td>
+               <td><a href="pos1.php?delete_all" onclick="return confirm('delete all from cart?');" class="delete-btn <?php echo ($grand_total > 1)?'':'disabled'; ?>">delete all</a></td>
             </tr>
          </tbody>
          </table>

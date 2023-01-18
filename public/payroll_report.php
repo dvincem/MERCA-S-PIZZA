@@ -121,9 +121,22 @@ if($_SESSION['usertype']=="hr" || $_SESSION['usertype']=="superadmin"){
     <!-- ADDED HEADER -->
     <div class="row my-2">
       <div class="col-lg-4">
-          <h2 style= "font-weight: bold;">Employee Payroll Report</h2>
+          <h2 style= "font-weight: bold;"><i class="bi bi-person-lines-fill"></i> Employee Payroll Report</h2>
       </div>
     </div>
+    <form action="includes/search_code.php" method="POST">
+      <div class="row g-1 align-items-center justify-content-end">
+          <div class="col-auto">
+              <label for="searchNum" class="col-form-label">Employee Number:</label>
+          </div>
+          <div class="col-auto">
+              <input type="search" id="searchNum" name="searchNum"class="form-control" placeholder="1234567890">
+          </div>
+          <div class="col-auto">
+              <button type="submit" id="search_emp_list" name="search_emp_list" class="btn btn-sm btn-danger"><i class="bi bi-search"></i></button>
+          </div>
+      </div>
+    </form>
     <div class="row my-2 gy-5 gx-10 justify-content-center">
         <div class="col-lg-12 d-flex justify-content-center">
         <table class="table table-hover border-dark">

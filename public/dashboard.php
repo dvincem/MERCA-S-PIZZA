@@ -135,7 +135,8 @@ else{
             <div class="content">
                   <h1>Welcome to</h1>
                   <br>
-                  <div id="btn1"><a href="#"><button>DASHBOARD</button></div></a>
+                  <!-- from <a></a> to <div></div>-->
+                  <div id="btn1" href="#"><button>DASHBOARD</button></div>
             </div>
     </div>
     <!-- big banner at front -->
