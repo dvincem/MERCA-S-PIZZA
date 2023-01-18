@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.2.0
+-- version 5.1.1
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jan 17, 2023 at 02:52 PM
--- Server version: 10.4.25-MariaDB
--- PHP Version: 7.4.30
+-- Generation Time: Jan 18, 2023 at 10:55 AM
+-- Server version: 10.4.22-MariaDB
+-- PHP Version: 8.1.1
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -67,8 +67,9 @@ CREATE TABLE `employee` (
 --
 
 INSERT INTO `employee` (`id`, `employeenumber`, `employeename`, `gender`, `birthdate`, `nationality`, `civilstatus`, `department`, `designation`, `employeestatus`, `picture`, `contactnumber`, `email`, `age`, `paydate`, `dependent`) VALUES
-(1, '1234', 'Lopits  n/a Quillopo', 'Gender', '2000-01-05', 'Filipino', 'Single', 'DCS', 'Computer Science', 'Employed', 'WIN_20221204_23_02_04_Pro.jpg', '09989291436', 'enriquejr.quillopo@gmail.com', '22', '2022-12-03', NULL),
-(2, '201910582', 'Im Nayeon Quillopo', 'Gender', '2000-11-21', 'Filipino', 'Single', 'DCS', 'Information Technology', 'Employed', 'nabong.jpg', '09366946652', 'quillopoenrique@gmail.com', '22', '2022-10-05', NULL);
+(1, '1234', 'Lopits  n/a Quillopo', 'Gender', '2000-01-05', 'Filipino', 'Single', 'DCS', 'Computer Science', 'Employed', 'WIN_20221204_23_02_04_Pro.jpg', '09989291436', 'enriquejr.quillopo@gmail.com', '22', '2022-12-03', '2a'),
+(2, '201910582', 'Im Nayeon Quillopo', 'Gender', '2000-11-21', 'Filipino', 'Single', 'DCS', 'Information Technology', 'Employed', 'nabong.jpg', '09366946652', 'quillopoenrique@gmail.com', '22', '2022-10-05', NULL),
+(6, '5', 'asdas a asdasd', 'male', '2000-02-02', 'Filipino', 'Single', 'DCS', 'Computer Science', 'Employed', 'jehyu.jpg', '09366946652', 'merca@herrhr', '22', NULL, '2a');
 
 -- --------------------------------------------------------
 
@@ -78,7 +79,6 @@ INSERT INTO `employee` (`id`, `employeenumber`, `employeename`, `gender`, `birth
 
 CREATE TABLE `logins` (
   `id` int(200) NOT NULL,
-  `employee_num` int(11) NOT NULL,
   `fname` varchar(100) NOT NULL,
   `lname` varchar(100) NOT NULL,
   `age` int(11) NOT NULL,
@@ -92,10 +92,40 @@ CREATE TABLE `logins` (
 -- Dumping data for table `logins`
 --
 
-INSERT INTO `logins` (`id`, `employee_num`, `fname`, `lname`, `age`, `username`, `email`, `pass`, `usertype`) VALUES
-(9, 1, 'mark', 'dado', 22, 'mark42', 'mark42@merca.com', 'mark123!', 'cashier1'),
-(10, 201910582, 'Enrique', 'Quillopo', 22, 'lopits', 'enriquejr.eq@gmail.com', 'Lopits123!', 'hr'),
-(11, 202010582, 'Christian', 'Acedillo', 22, 'christian', 'christianacedillo@gmail.com', 'christian1!', 'cashier2');
+INSERT INTO `logins` (`id`, `fname`, `lname`, `age`, `username`, `email`, `pass`, `usertype`) VALUES
+(9, 'Mark', 'Dado', 22, 'cashier1@merca', 'cashier1@merca.com', 'cashier1!', 'cashier1'),
+(10, 'Enrique', 'Quillopo', 22, 'hr@merca', 'hr@merca.com', 'hrmerca1!', 'hr'),
+(11, 'Christian', 'Acedillo', 22, 'cashier2@merca', 'cashier2@merca.com', 'cashier2!', 'cashier2'),
+(12, 'Arthur', 'Morgan', 34, 'superadmin@merca', 'superadmin@merca.com', 'superadmin1!', 'superadmin'),
+(13, 'Lopits', 'Quillopo', 18, 'enriquejr.quillopo', 'enriquejr.eq@gmail.com', 'Lopits1!', 'hr');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `payroll`
+--
+
+CREATE TABLE `payroll` (
+  `payroll_id` int(11) NOT NULL,
+  `employeeid_fk` int(11) NOT NULL,
+  `basicincome` float NOT NULL,
+  `honorarium` float NOT NULL,
+  `otherincome` float NOT NULL,
+  `grossincome` float NOT NULL,
+  `netincome` float NOT NULL,
+  `totaldeduction` float NOT NULL,
+  `sss` float NOT NULL,
+  `philhealth` float NOT NULL,
+  `pagibig` float NOT NULL,
+  `tax` float NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `payroll`
+--
+
+INSERT INTO `payroll` (`payroll_id`, `employeeid_fk`, `basicincome`, `honorarium`, `otherincome`, `grossincome`, `netincome`, `totaldeduction`, `sss`, `philhealth`, `pagibig`, `tax`) VALUES
+(1, 1, 18450, 3075, 15129, 36654, 28464.7, 8189.26, 1125, 1466.16, 100, 0);
 
 -- --------------------------------------------------------
 
@@ -208,6 +238,13 @@ ALTER TABLE `logins`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `payroll`
+--
+ALTER TABLE `payroll`
+  ADD PRIMARY KEY (`payroll_id`),
+  ADD KEY `emp_idfk` (`employeeid_fk`);
+
+--
 -- Indexes for table `products`
 --
 ALTER TABLE `products`
@@ -239,13 +276,19 @@ ALTER TABLE `cart`
 -- AUTO_INCREMENT for table `employee`
 --
 ALTER TABLE `employee`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `logins`
 --
 ALTER TABLE `logins`
-  MODIFY `id` int(200) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `id` int(200) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+
+--
+-- AUTO_INCREMENT for table `payroll`
+--
+ALTER TABLE `payroll`
+  MODIFY `payroll_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `products`

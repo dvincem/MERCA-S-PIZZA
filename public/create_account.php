@@ -1,5 +1,6 @@
 <?php 
     include 'includes/config.php';
+    session_start();
 ?>
 
 <!DOCTYPE html>
@@ -8,6 +9,8 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/dashboard.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"/>
     <!--Bootstrap css-->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
@@ -25,7 +28,76 @@
     </nav>
 
     <!--Create Account-->
+    <section id="sides">
+    <input type="checkbox" id="check">
+    <label for="check" class="mb-4 mt-1">
+      <i class="fas fa-bars" id="btn"></i>
+      <i class="fas fa-times" id="cancel"></i>
+    </label>
+    <div class="sidebar">
+      <header>Dashboard</header>
+      <a href="dashboard.php">
+        <i class="fas fa-qrcode"></i>
+        <span>Dashboard</span>
+      </a>
+      <?php if($_SESSION['usertype']=="cashier1" || $_SESSION['usertype']=="superadmin" )
+      {
+        ?>
+      <a href="main/index1.php" >
+        <i class="fas fa-link"></i>
+        <span>POS A</span>
+      </a>
+      <a href="sales_pos_a.php">
+        <i class="fas fa-stream"></i>
+        <span>Sales POS A</span>
+      </a>
+      <?php 
+      }
+      if($_SESSION['usertype']=="hr" || $_SESSION['usertype']=="superadmin")
+      {
+      ?>
 
+      <a href="payroll_emplist.php">
+         <i class="fas fa-calendar"></i>
+        <span>Payroll</span>
+      </a>
+      <a href="payroll_report.php">
+        <i class="fas fa-stream"></i>
+        <span>Payroll Report</span>
+      </a>
+      <a href="employee_list.php" class="active">
+        <i class="far fa-question-circle"></i>
+        <span>Employee List</span>
+      </a>
+      <?php }
+      if($_SESSION['usertype']=="cashier2" || $_SESSION['usertype']=="superadmin"){
+        ?>
+      <a href="main/index2.php">
+      <i class="fas fa-link"></i>
+        <span>POS B</span>
+      </a>
+      <a href="sales_pos_b.php">
+      <i class="fas fa-stream"></i>
+        <span>Sales POS B</span>
+      </a>
+      <?php }
+      if($_SESSION['usertype']=="superadmin"){
+        ?>
+        <a href="create_account.php">
+      <i class="fas fa-link"></i>
+        <span>Create Account</span>
+      </a>
+      <?php }?>
+      <a href="#.php">
+        <i class="far fa-question-circle"></i>
+        <span>User Account</span>
+      </a>
+      <a href="login_page.php">
+        <i class="far fa-qr-code"></i>
+        <span>Logout</span>
+      </a>
+    </div>
+    </section>
     <div class="container">
         <div class="row my-custom-row justify-content-around">
             <div class="col col-lg-6 col-md-7 col-sm-10" id="signup">
@@ -194,27 +266,7 @@
                                 ';
                             }
 
-                            # employee number
-                            if (isset($_GET['emp_num'])) {
-                                $Emp_num = $_GET['emp_num'];
-                                echo '
-                                <div class="input-group mb-3">
-                                    <span class="input-group-text">Employee Number</span>
-                                    <input type="number" name="Emp_num" id="Emp_num" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" value="'.$Emp_num.'" placeholder = "12345">
-                                </div>
-                                <p id="validateemp_num"></p>
-                                ';
-                            }
-                            else {
-                                echo '
-                                <div class="input-group mb-3">
-                                    <span class="input-group-text">Employee Number</span>
-                                    <input type="number" name="Emp_num" id="Emp_num" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" placeholder = "12345">
-                                </div>
-                                <p id="validateemp_num"></p>
-                                ';
-                            }
-
+                            
                             # username
                             if (isset($_GET['Username'])) {
                                 $Username = $_GET['Username'];
@@ -256,7 +308,14 @@
                                 ';
                             }
                         ?>
-
+                        <div class="form-floating mb-3">
+                            <select name="usertype" class="form-control">
+                                <option value="cashier1">Cashier A</option>
+                                <option value="hr">HR</option>
+                                <option value="cashier2">Cashier B</option>
+                            </select>
+                            <label for="Password" class="text-dark"><i class="bi bi-key-fill"></i> User Type</label>
+                        </div>
                         <!--create password-->
                         <div class="form-floating mb-3">
                             <input type="password" class="form-control" id="Password" name="Password" placeholder="Password" >
@@ -381,17 +440,6 @@
                 document.getElementById('Age').className = "form-control border-success border-2";
             }
             
-            // for employee number
-            if (emp_num.value == null || emp_num.value == "") {
-                document.getElementById('validateemp_num').innerText = "";
-                document.getElementById('validateemp_num').className = "text-danger";
-                document.getElementById('Emp_num').className = "form-control border-danger border-3";
-            }
-            else{
-                document.getElementById('validateemp_num').innerText = "";
-                document.getElementById('validateemp_num').className = "text-success";
-                document.getElementById('Emp_num').className = "form-control border-success border-2";
-            }
 
             //for username
             invaliduser = "must be 4 characters or longer";
@@ -410,7 +458,7 @@
                 document.getElementById('validateuser').className = "text-success";
                 document.getElementById('Username').className = "form-control border-success border-2";
             }
-
+            
             // for email
             invalidmail = "email not valid";
             if (email.value == null || email.value == "") {

@@ -21,7 +21,7 @@
     <!-- NAV BAR -->
     <nav class="navbar navbar-expand-md navbar-light">
         <div class="container-xxl">
-            <a href="login_page.php" class="navbar-brand">
+            <a href="index.php" class="navbar-brand">
                 <img src="logo.png" alt="" width="30" height="24" class="d-inline-block align-text-top">
                 <span class="text-light"><b>MERCA'S PIZZA</b></span>
             </a>
@@ -109,9 +109,8 @@
                             <input type="password" class="form-control" id="loginPassword" name="Password" placeholder="Password">
                             <label for="loginPassword"><i class="bi bi-key-fill"></i>Password</label>
                         </div>
-                        <div class="d-grid gap-2 d-md-flex justify-content-between">
-                            <a href="create_account.php" class="btn btn-primary"><i class="bi bi-person-plus"></i> sign up</a>
-                                
+                        <div class="d-grid gap-2 d-md-flex justify-content-end">
+                            
                             </button>
                             <button type="submit" id="login" name="submit-login" class="btn btn-outline-light">
                                 <i class="bi bi-unlock"></i> login

@@ -1,7 +1,7 @@
 <?php 
 include "config.php";
 session_start();
-if($_SESSION['usertype']=="hr"){
+if($_SESSION['usertype']=="hr" || $_SESSION['usertype']=="superadmin"){ 
   if(isset($_GET['id'])){
     $id = trim($_GET['id'])-0;
     $sql = "SELECT * FROM employee WHERE id=$id";
@@ -44,6 +44,18 @@ if($_SESSION['usertype']=="hr"){
           $netincome=$fetch['netincome'];
           $gross_income=$fetch['grossincome'];
         }
+      }
+      else{
+        $totalbasicpay = "n/a";
+          $totalhonorpay="n/a";
+          $totalotherpay="n/a";
+          $totaldeduction="n/a";
+          $SSS="n/a";
+          $pagibig="n/a";
+          $philhealth="n/a";
+          $tax="n/a";
+          $netincome="n/a";
+          $gross_income="n/a";
       }
 }
 ?>
@@ -142,56 +154,6 @@ function cancels()
             -moz-background-size: cover;
             -o-background-size: cover;
             background-size: cover;">
-<section id="sides">
-    <input type="checkbox" id="check">
-    <label for="check">
-      <i class="fas fa-bars" id="btn"></i>
-      <i class="fas fa-times" id="cancel"></i>
-    </label>
-    <div class="sidebar">
-      <header>Payroll</header>
-      <a href="dashboard.php" >
-        <i class="fas fa-qrcode"></i>
-        <span>Dashboard</span>
-      </a>
-      <a href="index.php" >
-        <i class="fas fa-link"></i>
-        <span>POS A</span>
-      </a>
-      <a href="sales_pos_a.php">
-        <i class="fas fa-stream"></i>
-        <span>Sales POS A</span>
-      </a>
-      <a href="payroll_emplist.php" class="active">
-         <i class="fas fa-calendar"></i>
-        <span>Payroll</span>
-      </a>
-      <a href="payroll_report.php">
-        <i class="fas fa-stream"></i>
-        <span>Payroll Report</span>
-      </a>
-      <a href="employee_list.php">
-        <i class="far fa-question-circle"></i>
-        <span>Employee List</span>
-      </a>
-      <a href="Wp3POS.php">
-      <i class="fas fa-link"></i>
-        <span>POS B</span>
-      </a>
-      <a href="sales_pos_b.php">
-      <i class="fas fa-stream"></i>
-        <span>Sales POS B</span>
-      </a>
-      <a href="employee_list.php">
-        <i class="far fa-question-circle"></i>
-        <span>User Account</span>
-      </a>
-      <a href="login_page.php.php">
-        <i class="far fa-qr-code"></i>
-        <span>Logout</span>
-      </a>
-    </div>
-    </section>
     <!--Employee Details-->
     <section id="empdetails" >
         <div class="container-md form-group border p-3 border-dark" id="empdetailscontainer" style="background-color: #EDE1CF;">

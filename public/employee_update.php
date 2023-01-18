@@ -1,7 +1,7 @@
 <?php
 include "config.php";
 session_start();
-if($_SESSION['usertype']=="hr"){
+if($_SESSION['usertype']=="hr" || $_SESSION['usertype']=="superadmin"){
 //Employee Details
 if(isset($_GET['id'])){
     $id = trim($_GET['id'])-0;
@@ -35,7 +35,7 @@ if(isset($_POST['submit'])){
     $proof_img = $_FILES["picture"]["name"];
     $id = trim($_GET['id'])-0;
     $imageTempName = $_FILES["picture"]["tmp_name"];
-    $targetPath = "C:/xampp/htdocs/MERCAPIZZA/emp_pics/".$proof_img;
+    $targetPath = "C:/xampp/htdocs/MERCAPIZZA/public/emp_pics/".$proof_img;
     $targetpicDB=$proof_img;
     $photo = $_POST['photo'];
     move_uploaded_file($imageTempName, $targetPath);
@@ -201,6 +201,6 @@ no-repeat center center fixed;
 <?php }
 else{
   echo '<script>alert("Unauthorized Web Access")</script>';
-  echo '<script>window.location.href="login_page.php"</script>';
+  echo '<script>window.location.href="dashboard.php"</script>';
 }
 ?>

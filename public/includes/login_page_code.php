@@ -48,6 +48,13 @@
                         header("location: ../dashboard.php");
                         exit();
                     }
+                    elseif ($row['pass'] == $Password && $row['usertype']=='superadmin') {
+                        session_start();
+                        $_SESSION['username'] = $row['username'];
+                        $_SESSION['usertype'] = $row['usertype'];
+                        header("location: ../dashboard.php");
+                        exit();
+                    }
                     else {
                         header("location: ../login_page.php?error=unknown!&Username=".$Email_User."");
                         exit();
