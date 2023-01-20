@@ -25,7 +25,19 @@ else{
     <script src=
 "https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js">
         </script>
+        <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     <link rel="stylesheet" href="css/main.min.css">
+    <script type="text/javascript">
+                    function popup()
+                    {
+                      swal({
+                            title: "UNDER MAINTENANCE",
+                            text: "not available at the moment",
+                            icon: "warning",
+                            button: "I understand",
+                          });
+                    }
+                  </script>
   </head>
   <body style="background-color: #EDE1CF;
     font-family: sans-serif;">
@@ -33,7 +45,7 @@ else{
       
         <nav class="navbar navbar-expand-md" id="navbar-color">
             <!-- Brand -->
-            <a class="navbar-brand" href="#" id="logo-color"><i><img src="./icon/logo.png" alt=""></i>MERCA'S PIZZA</a>
+            <a class="navbar-brand" href="dashboard.php" id="logo-color"><i><img src="./icon/logo.png" alt=""></i>MERCA'S PIZZA</a>
           
             <!-- Toggler/collapsibe Button -->
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
@@ -133,9 +145,42 @@ else{
     </div>
     </section>
             <div class="content">
-                  <h1>Welcome to</h1>
+                  <?php 
+                  if($_SESSION['usertype']=="superadmin"){
+                  ?>
+                  <h1>Welcome Super Admin</h1>
                   <br>
-                  <div id="btn1"><a href="#"><button>DASHBOARD</button></div></a>
+                  
+                  <?php 
+                  }
+                  ?>
+                  <?php 
+                  if($_SESSION['usertype']=="cashier1"){
+                  ?>
+                  <h1>Welcome Cashier A</h1>
+                  <br>
+                  <?php 
+                  }
+                  ?>
+                  <?php 
+                  if($_SESSION['usertype']=="cashier2"){
+                  ?>
+                  <h1>Welcome Cashier B</h1>
+                  <br>
+                  <?php 
+                  }
+                  ?>
+                  <?php 
+                  if($_SESSION['usertype']=="hr"){
+                  ?>
+                  <h1>Welcome HR</h1>
+                  <br>
+                  <?php 
+                  }
+                  ?>
+                  <div id="btn1"><a href="#">
+
+                  <button onclick="popup()">DASHBOARD</button></div></a>
             </div>
     </div>
     <!-- big banner at front -->

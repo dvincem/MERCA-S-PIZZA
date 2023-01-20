@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jan 18, 2023 at 10:55 AM
+-- Generation Time: Jan 20, 2023 at 07:32 AM
 -- Server version: 10.4.22-MariaDB
 -- PHP Version: 8.1.1
 
@@ -30,12 +30,19 @@ SET time_zone = "+00:00";
 CREATE TABLE `cart` (
   `id` int(100) NOT NULL,
   `user_id` int(100) NOT NULL,
-  `name` varchar(100) NOT NULL,
+  `name` text NOT NULL,
   `price` varchar(100) NOT NULL,
   `image` varchar(100) NOT NULL,
   `quantity` int(100) NOT NULL,
   `discount` decimal(3,2) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `cart`
+--
+
+INSERT INTO `cart` (`id`, `user_id`, `name`, `price`, `image`, `quantity`, `discount`) VALUES
+(159, 1, '------- FOOD BUNDLE B -------Mushroom Pizza, Margherita Pizza, Overload Pizza, 2 Large Merca Fries, Merca Bucket Meal & 1.5L of Coke\r\n', '1970', 'foodbundleB.png', 1, '0.20');
 
 -- --------------------------------------------------------
 
@@ -69,7 +76,8 @@ CREATE TABLE `employee` (
 INSERT INTO `employee` (`id`, `employeenumber`, `employeename`, `gender`, `birthdate`, `nationality`, `civilstatus`, `department`, `designation`, `employeestatus`, `picture`, `contactnumber`, `email`, `age`, `paydate`, `dependent`) VALUES
 (1, '1234', 'Lopits  n/a Quillopo', 'Gender', '2000-01-05', 'Filipino', 'Single', 'DCS', 'Computer Science', 'Employed', 'WIN_20221204_23_02_04_Pro.jpg', '09989291436', 'enriquejr.quillopo@gmail.com', '22', '2022-12-03', '2a'),
 (2, '201910582', 'Im Nayeon Quillopo', 'Gender', '2000-11-21', 'Filipino', 'Single', 'DCS', 'Information Technology', 'Employed', 'nabong.jpg', '09366946652', 'quillopoenrique@gmail.com', '22', '2022-10-05', NULL),
-(6, '5', 'asdas a asdasd', 'male', '2000-02-02', 'Filipino', 'Single', 'DCS', 'Computer Science', 'Employed', 'jehyu.jpg', '09366946652', 'merca@herrhr', '22', NULL, '2a');
+(6, '5', 'asdas a asdasd', 'male', '2000-02-02', 'Filipino', 'Single', 'DCS', 'Computer Science', 'Employed', 'jehyu.jpg', '09366946652', 'merca@herrhr', '22', NULL, '2a'),
+(7, '12345', 'Angelica Joy N/A Glory', 'female', '2001-02-07', 'Filipino', 'Single', 'DCS', 'Instructor', 'Employed', 'author-2.jpg', '09989291436', 'enriquejr.quillopo@cvsu.edu.ph', '21', NULL, '3a');
 
 -- --------------------------------------------------------
 
@@ -125,7 +133,8 @@ CREATE TABLE `payroll` (
 --
 
 INSERT INTO `payroll` (`payroll_id`, `employeeid_fk`, `basicincome`, `honorarium`, `otherincome`, `grossincome`, `netincome`, `totaldeduction`, `sss`, `philhealth`, `pagibig`, `tax`) VALUES
-(1, 1, 18450, 3075, 15129, 36654, 28464.7, 8189.26, 1125, 1466.16, 100, 0);
+(1, 1, 18450, 3075, 15129, 36654, 28464.7, 8189.26, 1125, 1466.16, 100, 0),
+(2, 1, 4500, 900, 900, 6300, 5340.5, 959.5, 292.5, 252, 100, 0);
 
 -- --------------------------------------------------------
 
@@ -270,13 +279,13 @@ ALTER TABLE `sales_pos_b`
 -- AUTO_INCREMENT for table `cart`
 --
 ALTER TABLE `cart`
-  MODIFY `id` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=150;
+  MODIFY `id` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=160;
 
 --
 -- AUTO_INCREMENT for table `employee`
 --
 ALTER TABLE `employee`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `logins`
@@ -288,7 +297,7 @@ ALTER TABLE `logins`
 -- AUTO_INCREMENT for table `payroll`
 --
 ALTER TABLE `payroll`
-  MODIFY `payroll_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `payroll_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `products`

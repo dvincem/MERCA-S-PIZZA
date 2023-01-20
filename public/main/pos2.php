@@ -24,37 +24,65 @@ if($_SESSION['usertype']=="cashier2" || $_SESSION['usertype']=="superadmin"){
   <script>
     var CompDiscedAmnt = "";
     var CompDiscAmnt = "";
+    var TotalCompDiscedAmnt = "";
+    var TotalCompDiscAmnt = "";
     var CompNoDiscedAmnt = "";
     var CompNoDiscAmnt = "";
+    var TotalCompNoDiscedAmnt = "";
+    var TotalCompNoDiscAmnt = "";
+    var AddCompDiscedAmnt = "";
+    var AddCompDiscAmnt = "";
+    var AddCompNoDiscedAmnt = "";
+    var AddCompNoDiscAmnt = "";
+    var price = 500;
     var NullDiscedAmnt = "₱ 0.00";
     var DiscedAmnt = "";
     var DiscAmnt = "";
     var Subtotal = "";
+    var AddNullDiscedAmnt = "₱ 0.00";
+    var AddDiscedAmnt = "";
+    var AddDiscAmnt = "";
+    var AddSubtotal = "";
+    var GrandSubtotal = "";
     var NoDisc = "";
+    var AddNoDisc = "";
+    var TotalNull = Subtotal;
+    var AddTotalNull = Subtotal;
     var Total = "";
+    var AddTotal = "";
     var Qty = "";
+    var AddQty = "";
     var TotalQty = "";
+    var AddTotalQty = "";
     var TotalDisc = "";
     var TotalNoDisc = "";
+    var AddTotalDisc = "";
+    var AddTotalNoDisc = "";
     var CashRndrd = "";
     var CompChange = "";
     var Change = "";
+    var addNo= "";
+    var add1 = "";
+    var add2 = "";
 
     function NewButton() {
       document.getElementById("OrderDits").reset();
-      TotalQty = document.getElementById('TotQty').value= 0;
-      Total = document.getElementById('TotAmt').value= "₱ 0.00";
-      TotalDisc = document.getElementById('TotDisc').value= "₱ 0.00";
     }
-    function ExitButton() {
-      window.location.href="../dashboard.php";
+    function NewButton2() {
+      document.getElementById("Summary").reset();
+    }
+    function NewButton3() {
+      document.getElementById("Transaction").reset();
     }
     function CancelButton() {
       document.getElementById("OrderDits").reset();
-      TotalQty = document.getElementById('TotQty').value= 0;
-      Total = document.getElementById('TotAmt').value= "₱ 0.00";
-      TotalDisc = document.getElementById('TotDisc').value= "₱ 0.00";
       alert("ORDER HAS BEEN CANCELLED");
+    }
+    function CancelButton2() {
+      document.getElementById("Summary").reset();
+    }
+    function CancelButton3() {
+      document.getElementById("Transaction").reset();
     }
 
     function DiscountButton() {
@@ -65,7 +93,7 @@ if($_SESSION['usertype']=="cashier2" || $_SESSION['usertype']=="superadmin"){
       DiscAmnt = document.getElementById('DiscAmnt').value= "₱ " + CompDiscAmnt + ".00";
       DiscedAmnt = document.getElementById('DiscedAmnt').value= "₱ " + CompDiscedAmnt + ".00";
     
-      if (document.getElementById('qty').value.length == 0 || document.getElementById('qty').value.length == 0){
+      if (document.getElementById('qty').value.length == 0 || document.getElementById('qty').value == 0){
         alert("QUANTITY SHOULD BE AT LEAST 1")
         NoDisc = 0;
         CompNoDiscAmnt = NoDisc * .25; 
@@ -82,7 +110,7 @@ if($_SESSION['usertype']=="cashier2" || $_SESSION['usertype']=="superadmin"){
       DiscAmnt = document.getElementById('DiscAmnt').value= "₱ " + CompNoDiscAmnt + ".00";
       DiscedAmnt = document.getElementById('DiscedAmnt').value= "₱ " + CompNoDiscedAmnt + ".00";
 
-      if (document.getElementById('qty').value.length == 0 || document.getElementById('qty').value.length == 0){
+      if (document.getElementById('qty').value.length == 0 || document.getElementById('qty').value == 0){
         alert("QUANTITY SHOULD BE AT LEAST 1")
         return false;
       }
@@ -97,19 +125,58 @@ if($_SESSION['usertype']=="cashier2" || $_SESSION['usertype']=="superadmin"){
         CompNoDiscAmnt = NoDisc * .25; 
         CompNoDiscedAmnt = NoDisc - CompNoDiscAmnt;
         Total = document.getElementById('TotAmt').value= "₱ " + Subtotal + ".00";
+        TotalCompNoDiscAmnt = Subtotal;
         TotalNoDisc = document.getElementById('TotDisc').value= "₱ " + CompNoDiscedAmnt + ".00";
+        TotalCompNoDiscedAmnt = CompNoDiscedAmnt;
       }
 
       else if (DiscAmnt => 1){
         TotalQty = document.getElementById('TotQty').value= Qty;
-        Total = document.getElementById('TotAmt').value= "₱ " + CompDiscedAmnt + ".00";
+        TotalCompDiscedAmnt = CompDiscedAmnt;
+        Total = document.getElementById('TotAmt').value= "₱ " + TotalCompDiscedAmnt + ".00";
+        TotalCompDiscAmnt = CompDiscAmnt;
         TotalDisc = document.getElementById('TotDisc').value= "₱ " + CompDiscAmnt + ".00";
+        
+      }
+    }
+    function CalculateButton1() {
+      Qty = parseFloat(document.getElementById('qty').value);
+      if (document.getElementById('DiscAmnt').value.length == 0 || document.getElementById('DiscAmnt').value == 0){
+        TotalQty = document.getElementById('TotQty').value= Qty;
+        Subtotal = Qty*500;
+        NoDisc = Qty*0;
+        CompNoDiscAmnt = NoDisc * .25; 
+        CompNoDiscedAmnt = NoDisc - CompNoDiscAmnt;
+        Total = document.getElementById('TotAmt').value= "₱ " + Subtotal + ".00";
+        TotalNoDisc = document.getElementById('TotDisc').value= "₱ " + CompNoDiscedAmnt + ".00";
+      }
+    }
+    function AddButton() {
+      AddQty = parseFloat(document.getElementById('qty').value);
+      
+      if (Total == "₱ " + Subtotal + ".00") {
+        AddTotalQty = document.getElementById('TotQty').value= TotalQty + AddQty;
+        AddSubtotal = (AddQty*500) + Subtotal;
+        AddNoDisc = AddTotalQty*0;
+        AddCompNoDiscAmnt = (AddNoDisc * .25); 
+        AddCompNoDiscedAmnt = (AddNoDisc - AddCompNoDiscAmnt);
+        AddTotal = document.getElementById('TotAmt').value= "₱ " + AddSubtotal + ".00";
+        AddTotalNoDisc = document.getElementById('TotDisc').value= "₱ " + AddCompNoDiscedAmnt + ".00";
+      }
+      else if (Total => "₱ " + TotalCompDiscedAmnt + ".00"){
+        AddTotalQty = document.getElementById('TotQty').value= TotalQty + AddQty;
+        AddSubtotal = AddQty*500;
+        AddCompDiscAmnt = (AddSubtotal * .25); 
+        AddCompDiscedAmnt = (AddSubtotal - AddCompDiscAmnt);
+        add1 = AddCompDiscedAmnt + TotalCompDiscedAmnt;
+        AddTotal = document.getElementById('TotAmt').value= "₱ " + add1 + ".00";
+        add2 = AddCompDiscAmnt + TotalCompDiscAmnt;
+        AddTotalDisc = document.getElementById('TotDisc').value= "₱ " + add2 + ".00";
       }
       
     }
-
+    
     function ChangeButton() {
-      Qty = parseFloat(document.getElementById('qty').value);
       if (DiscAmnt == "₱ " + CompNoDiscAmnt + ".00"){
         CashRndrd = parseFloat(document.getElementById('CashRndrd').value);
         CompChange = CashRndrd - Subtotal; 
@@ -118,7 +185,7 @@ if($_SESSION['usertype']=="cashier2" || $_SESSION['usertype']=="superadmin"){
        if (CompChange == 0) {
           return Change = document.getElementById('Change').value= "₱ 0.00";
         }
-       if (CashRndrd <= Subtotal || CashRndrd === null || CashRndrd <= 0){
+       if (CashRndrd <= Subtotal ||CashRndrd <= 0){
           alert ("CASH IS INVALID! TRY AGAIN!");
           return Change = document.getElementById('Change').value= "₱ 0.00";
         }
@@ -132,17 +199,51 @@ if($_SESSION['usertype']=="cashier2" || $_SESSION['usertype']=="superadmin"){
         if (CompChange == 0) {
           return Change = document.getElementById('Change').value= "₱ 0.00";
         }
-        if (CashRndrd <= CompDiscedAmnt || CashRndrd === null || CashRndrd <= 0) {
+        if (CashRndrd <= CompDiscedAmnt || CashRndrd <= 0) {
           alert ("CASH IS INVALID! TRY AGAIN!");
           return Change = document.getElementById('Change').value= "₱ 0.00";
         }
       }
     
     }
+    function ChangeButton1() {
+      if (AddTotal == "₱ " + AddSubtotal + ".00"){
+        CashRndrd = parseFloat(document.getElementById('CashRndrd').value);
+        CompChange = CashRndrd - AddSubtotal; 
+        Change = document.getElementById('Change').value= "₱ " + CompChange + ".00";
+        
+       if (CompChange == 0) {
+          return Change = document.getElementById('Change').value= "₱ 0.00";
+        }
+       if (CashRndrd <= Subtotal ||CashRndrd <= 0){
+          alert ("CASH IS INVALID! TRY AGAIN!");
+          return Change = document.getElementById('Change').value= "₱ 0.00";
+        }
+      }
+
+      else if (AddTotal => "₱ " + add1 + ".00"){
+        CashRndrd = parseFloat(document.getElementById('CashRndrd').value);
+        CompChange = CashRndrd - add1; 
+        Change = document.getElementById('Change').value= "₱ " + CompChange + ".00";
+
+        if (CompChange == 0) {
+          return Change = document.getElementById('Change').value= "₱ 0.00";
+        }
+        if (CashRndrd <= CompDiscedAmnt || CashRndrd <= 0) {
+          alert ("CASH IS INVALID! TRY AGAIN!");
+          return Change = document.getElementById('Change').value= "₱ 0.00";
+        }
+      }
+    }
+    function ChangeButton2() {
+      CashRndrd = document.getElementById('CashRndrd').value;
+      if (CashRndrd == 0){
+        alert ("NO CASH INPUTTED!");
+        return Change = document.getElementById('Change').value= "₱ 0.00";
+      }
+    }
     
   </script>
- <! return DiscAmnt = document.getElementById('DiscAmnt').value= "₱ 0.00";
-        return NullDiscedAmnt = document.getElementById('DiscedAmnt').value= NullDiscedAmnt;>
 
     <div class="grid-container">
       <div class="column-left">
@@ -153,39 +254,40 @@ if($_SESSION['usertype']=="cashier2" || $_SESSION['usertype']=="superadmin"){
               <section>
                 <fieldset>
                   <label for="NameOfItem" class="dits">Name of an item:</label>
-                  <input type="text" class="details" placeholder = "Pizza Name" id="NameItem" name="NameOfItem" size="40" disabled>
-                  <button type="button" class="btn" onclick="ChangeButton()">CHANGE</button><br>
+                  <input type="text" class="details" placeholder = "Pizza Name" id="NameItem" name="NameOfItem" disabled>
+                  <button type="button" class="btnn" onclick="AddButton()">ADD</button>
+                  <button type="button" class="btn" onclick="ChangeButton(); ChangeButton1()">CHANGE</button><br>
 
                   <label for="qty">Quantity:</label>
                   <input type="number" class="details" placeholder = "0" id="qty" name="qty" min="1">
                   <input type="radio" id="SenCtzn" name="Discount" value="SC" onclick="DiscountButton();">
                   <label for="html" class="choices">Senior Citizen</label>
-                  <button type="button" class="btn" onclick="CalculateButton()">CALCULATE</button><br>
+                  <button type="button" class="btn" onclick="CalculateButton(); CalculateButton1()">CALCULATE</button><br>
 
                   <label for="price">Price: </label>
                   <input type="text" class="Amntdetails" class="details" placeholder = "&#8369; 0.00" id="price" step="any" name="price" disabled>
                   <input type="radio" id="DiscCard" name="Discount" value="DiscCard" onclick="DiscountButton()">
                   <label for="html" class="choices">With Disc. Card</label>
-                  <button type="button" class="btn" onclick="NewButton()">NEW</button><br>
+                  <button type="button" class="btn" onclick="NewButton(), NewButton2(), NewButton3()">NEW</button><br>
 
                   <label for="DiscAmnt">Discount Amount: </label>
                   <input type="text" class="Amntdetails" placeholder = "&#8369; 0.00" id="DiscAmnt" name="DiscAmnts" disabled>
                   <input type="radio" id="EmpDisc" name="Discount" value="EmpDisc" onclick="DiscountButton()">
                   <label for="html" class="choices">Employee Disc</label>
-                  <button type="button" class="btn" onclick="CancelButton()">CANCEL</button><br>
+                  <button type="button" class="btn" onclick="CancelButton(), CancelButton2(), CancelButton3()">CANCEL</button><br>
 
                   <label for="DiscedAmnt">Discounted Amount: </label>
                   <input type="text" class="Amntdetails" placeholder = "&#8369; 0.00" id="DiscedAmnt" name="DiscedAmnts" disabled>
                   <input type="radio" id="NoDisc" name="Discount" value="NoDisc" onclick="NoDiscButton()">
                   <label for="html" class="choices">No Discount</label>
-                  <button type="button" class="btn" onclick="ExitButton()">EXIT</button><br>
+                  <button type="button" class="btn" onclick="close()">EXIT</button><br>
               
                 </fieldset>
               </section>
             </form>
         </div>
 
-        <form>
+        <form id="Summary">
           <section>
             <fieldset>
               <legend>Summary</legend>

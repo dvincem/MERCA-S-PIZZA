@@ -118,7 +118,7 @@ if(isset($_GET['delete_all'])){
             <div class="content">
                   <h1>BEST PIZZA</h1>
                   <h2>IN TOWN</h2>
-                  <div id="btn1"><a href="login_page.php"><button>ORDER NOW!</button></div></a>
+                  <div id="btn1"><a href="login_page.php"><button>LOG-IN</button></div></a>
             </div>
     </div>
     <!-- big banner at front -->
