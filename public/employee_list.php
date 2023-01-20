@@ -125,7 +125,7 @@ if($_SESSION['usertype']=="hr" || $_SESSION['usertype']=="superadmin"){
     <!-- ADDED HEADER -->
     <div class="row my-2">
       <div class="col-lg-4">
-          <h2 style= "font-weight: bold;">Employee List</h2>
+          <h2 style= "font-weight: bold;"><i class="bi bi-credit-card-2-front"></i> Employee List</h2>
           <a href="employee_add.php" class="btn btn-sm btn-dark"><i class="bi bi-person-plus"></i> Add New Employee</a>
       </div>
     </div>
@@ -138,10 +138,10 @@ if($_SESSION['usertype']=="hr" || $_SESSION['usertype']=="superadmin"){
               <label for="searchNum" class="col-form-label">Employee Number:</label>
           </div>
           <div class="col-auto">
-              <input type="search" id="searchNum" name="searchNum"class="form-control">
+              <input type="search" id="searchNum" name="searchNum"class="form-control"  placeholder="eg. 1234567890">
           </div>
           <div class="col-auto">
-              <button type="submit" id="search_emp_list" name="search_emp_list" class="btn btn-sm btn-danger">Search</button>
+              <button type="submit" id="search_emp_list" name="search_emp_list" class="btn btn-sm btn-danger"><i class="bi bi-search"></i></button>
           </div>
       </div>
     </form>
@@ -293,41 +293,6 @@ if($_SESSION['usertype']=="hr" || $_SESSION['usertype']=="superadmin"){
         }
       } // end else
     ?>
-    <!-- OLD TABLE -->
-    <?php /*
-    $query = "SELECT * FROM employee";
-    $run_query = mysqli_query($conn, $query) or die(mysqli_error($conn));
-    if (mysqli_num_rows($run_query) > 0){
-    while ($row = mysqli_fetch_array($run_query)){
-        $employeeid = $row['employeenumber'];
-        $employeename = $row['employeename'];
-        $gender = $row['gender'];
-        $birthdate = $row['birthdate'];
-        $nationality = $row['nationality'];
-        $civilstatus = $row['civilstatus'];
-        $designation = $row['designation'];
-        $department = $row['department'];
-        $id = $row['id'];
-        $employeestatus = $row['employeestatus'];
-        echo '<tr row_id="'.$id.'">';
-        echo '<th scope="row">'.$employeeid.'</th>';
-        echo '<td>'.$employeename.'</td>';
-        echo '<td>'.$gender.'</td>';
-        echo '<td>'.$birthdate.'</td>';
-        echo '<td>'.$nationality.'</td>';
-        echo '<td>'.$civilstatus.'</td>';
-        echo '<td>'.$designation.'</td>';
-        echo '<td>'.$department.'</td>';
-        echo '<td>'.$employeestatus.'</td>';
-        echo '</tr>';
-        echo '</a>';
-        ?>
-        </a>
-        <?php
-
-    }}*/
-    ?>
-  
   </tbody>
 </table>
         </div>

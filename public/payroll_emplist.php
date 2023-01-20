@@ -16,7 +16,7 @@ if($_SESSION['usertype']=="hr" || $_SESSION['usertype']=="superadmin"){
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!--Bootstrap css-->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"/>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css">
     <title>Payroll</title>
     <script src=
 "https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js">
@@ -125,9 +125,22 @@ if($_SESSION['usertype']=="hr" || $_SESSION['usertype']=="superadmin"){
     <!-- ADDED HEADER -->
     <div class="row my-2">
       <div class="col-lg-4">
-          <h2 style= "font-weight: bold;">Employee Payroll</h2>
+          <h2 style= "font-weight: bold;"><i class="bi bi-credit-card-2-front"></i> Employee Payroll</h2>
       </div>
     </div>
+    <form action="includes/search_code.php" method="POST">
+      <div class="row g-1 align-items-center justify-content-end">
+          <div class="col-auto">
+            <label for="searchNum" class="col-form-label">Employee Number:</label>
+          </div>
+          <div class="col-auto">
+            <input type="search" id="searchNum" name="searchNum"class="form-control" placeholder="eg. 1234567890">                
+          </div>
+          <div class="col-auto">
+              <button type="submit" id="search_payroll_emp_list" name="search_payroll_emp_list" class="btn btn-sm btn-danger"><i class="bi bi-search"></i></button>
+          </div>
+      </div>
+    </form>
     <div class="row my-2 gy-5 gx-10 justify-content-center">
         <div class="col-lg-12 d-flex justify-content-center">
         <table class="table table-hover border-dark">
@@ -145,40 +158,136 @@ if($_SESSION['usertype']=="hr" || $_SESSION['usertype']=="superadmin"){
     </tr>
   </thead>
   <tbody>
+    <!-- NEW TABLE ADDED -->
     <?php 
-    $query = "SELECT * FROM employee";
-    $run_query = mysqli_query($conn, $query) or die(mysqli_error($conn));
-    if (mysqli_num_rows($run_query) > 0){
-    while ($row = mysqli_fetch_array($run_query)){
-        $employeeid = $row['employeenumber'];
-        $employeename = $row['employeename'];
-        $gender = $row['gender'];
-        $birthdate = $row['birthdate'];
-        $nationality = $row['nationality'];
-        $civilstatus = $row['civilstatus'];
-        $designation = $row['designation'];
-        $department = $row['department'];
-        $id = $row['id'];
-        $employeestatus = $row['employeestatus'];
-        echo '<tr row_id="'.$id.'">';
-        echo '<th scope="row">'.$employeeid.'</th>';
-        echo '<td>'.$employeename.'</td>';
-        echo '<td>'.$gender.'</td>';
-        echo '<td>'.$birthdate.'</td>';
-        echo '<td>'.$nationality.'</td>';
-        echo '<td>'.$civilstatus.'</td>';
-        echo '<td>'.$designation.'</td>';
-        echo '<td>'.$department.'</td>';
-        echo '<td>'.$employeestatus.'</td>';
-        echo '</tr>';
-        echo '</a>';
-        ?>
-        </a>
-        <?php
-
-    }}
+      if (isset($_GET['empNum'])) {
+        $empNum = $_GET['empNum'];
+        $query = "SELECT * FROM employee WHERE employeenumber = '$empNum'";
+        $run_query = mysqli_query($conn, $query) or die(mysqli_error($conn));
+        if (mysqli_num_rows($run_query) > 0){
+          while ($row = mysqli_fetch_array($run_query)){
+            $employeeid = $row['employeenumber'];
+            $employeename = $row['employeename'];
+            $gender = $row['gender'];
+            $birthdate = $row['birthdate'];
+            $nationality = $row['nationality'];
+            $civilstatus = $row['civilstatus'];
+            $designation = $row['designation'];
+            $department = $row['department'];
+            $id = $row['id'];
+            $employeestatus = $row['employeestatus'];
+            echo '<tr row_id="'.$id.'">';
+            echo '<th scope="row">'.$employeeid.'</th>';
+            echo '<td>'.$employeename.'</td>';
+            echo '<td>'.$gender.'</td>';
+            echo '<td>'.$birthdate.'</td>';
+            echo '<td>'.$nationality.'</td>';
+            echo '<td>'.$civilstatus.'</td>';
+            echo '<td>'.$designation.'</td>';
+            echo '<td>'.$department.'</td>';
+            echo '<td>'.$employeestatus.'</td>';
+            echo '</tr>';
+            echo '</a>';
+          } // end while
+        }
+      } // end if
+      elseif (isset($_GET['error1'])) {
+        $error1 = $_GET['error1'] == "empty";
+        echo '<script>alert("empty search")</script>';
+        echo '<script>alert("reloading page")</script>';
+        $query = "SELECT * FROM employee";
+        $run_query = mysqli_query($conn, $query) or die(mysqli_error($conn));
+        if (mysqli_num_rows($run_query) > 0){
+          while ($row = mysqli_fetch_array($run_query)){
+            $employeeid = $row['employeenumber'];
+            $employeename = $row['employeename'];
+            $gender = $row['gender'];
+            $birthdate = $row['birthdate'];
+            $nationality = $row['nationality'];
+            $civilstatus = $row['civilstatus'];
+            $designation = $row['designation'];
+            $department = $row['department'];
+            $id = $row['id'];
+            $employeestatus = $row['employeestatus'];
+            echo '<tr row_id="'.$id.'">';
+            echo '<th scope="row">'.$employeeid.'</th>';
+            echo '<td>'.$employeename.'</td>';
+            echo '<td>'.$gender.'</td>';
+            echo '<td>'.$birthdate.'</td>';
+            echo '<td>'.$nationality.'</td>';
+            echo '<td>'.$civilstatus.'</td>';
+            echo '<td>'.$designation.'</td>';
+            echo '<td>'.$department.'</td>';
+            echo '<td>'.$employeestatus.'</td>';
+            echo '</tr>';
+            echo '</a>';
+          } // end while
+        }    
+      } // end elseif
+      elseif (isset($_GET['error2'])) {
+        $error2 = $_GET['error2'] == "norecord";
+        echo '<script>alert("no record found")</script>';
+        echo '<script>alert("reloading page")</script>';
+        $query = "SELECT * FROM employee";
+        $run_query = mysqli_query($conn, $query) or die(mysqli_error($conn));
+        if (mysqli_num_rows($run_query) > 0){
+          while ($row = mysqli_fetch_array($run_query)){
+            $employeeid = $row['employeenumber'];
+            $employeename = $row['employeename'];
+            $gender = $row['gender'];
+            $birthdate = $row['birthdate'];
+            $nationality = $row['nationality'];
+            $civilstatus = $row['civilstatus'];
+            $designation = $row['designation'];
+            $department = $row['department'];
+            $id = $row['id'];
+            $employeestatus = $row['employeestatus'];
+            echo '<tr row_id="'.$id.'">';
+            echo '<th scope="row">'.$employeeid.'</th>';
+            echo '<td>'.$employeename.'</td>';
+            echo '<td>'.$gender.'</td>';
+            echo '<td>'.$birthdate.'</td>';
+            echo '<td>'.$nationality.'</td>';
+            echo '<td>'.$civilstatus.'</td>';
+            echo '<td>'.$designation.'</td>';
+            echo '<td>'.$department.'</td>';
+            echo '<td>'.$employeestatus.'</td>';
+            echo '</tr>';
+            echo '</a>';
+          } // end while
+        }
+      } // end elseif    
+      else {
+        $query = "SELECT * FROM employee";
+        $run_query = mysqli_query($conn, $query) or die(mysqli_error($conn));
+        if (mysqli_num_rows($run_query) > 0){
+          while ($row = mysqli_fetch_array($run_query)){
+            $employeeid = $row['employeenumber'];
+            $employeename = $row['employeename'];
+            $gender = $row['gender'];
+            $birthdate = $row['birthdate'];
+            $nationality = $row['nationality'];
+            $civilstatus = $row['civilstatus'];
+            $designation = $row['designation'];
+            $department = $row['department'];
+            $id = $row['id'];
+            $employeestatus = $row['employeestatus'];
+            echo '<tr row_id="'.$id.'">';
+            echo '<th scope="row">'.$employeeid.'</th>';
+            echo '<td>'.$employeename.'</td>';
+            echo '<td>'.$gender.'</td>';
+            echo '<td>'.$birthdate.'</td>';
+            echo '<td>'.$nationality.'</td>';
+            echo '<td>'.$civilstatus.'</td>';
+            echo '<td>'.$designation.'</td>';
+            echo '<td>'.$department.'</td>';
+            echo '<td>'.$employeestatus.'</td>';
+            echo '</tr>';
+            echo '</a>';
+          } // end while
+        }
+      } // end else
     ?>
-  
   </tbody>
 </table>
         </div>

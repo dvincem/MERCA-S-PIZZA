@@ -13,7 +13,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"/>
     <!--Bootstrap css-->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css">
     <title>MERCA's PIZZA</title>
     <link rel="stylesheet" href="login.css">
 </head>
@@ -314,7 +314,7 @@
                                 <option value="hr">HR</option>
                                 <option value="cashier2">Cashier B</option>
                             </select>
-                            <label for="Password" class="text-dark"><i class="bi bi-key-fill"></i> User Type</label>
+                            <label for="Password" class="text-dark"><i class="bi bi-person-fill-gear"></i> User Type</label>
                         </div>
                         <!--create password-->
                         <div class="form-floating mb-3">

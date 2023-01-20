@@ -19,7 +19,7 @@ if($_SESSION['usertype']=="cashier1" || $_SESSION['usertype']=="superadmin"){
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"/>
         <!--Bootstrap css-->
-        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css">
         <script src=
     "https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js">
             </script>
@@ -115,9 +115,9 @@ if($_SESSION['usertype']=="cashier1" || $_SESSION['usertype']=="superadmin"){
 <section id="main">
 
     <div class="container-sm form-group border p-3  justify-content-center border-dark rounded" id="empdetailscontainer" style="background-color: #EDE1CF;">
-        <div class="row my-2 gy-5 gx-10">
+        <div class="row my-2">
             <div class="col-lg-4">
-                <h3 style= "font-weight: bold;">Sales Summary of POS B List</h3>
+                <h3 style= "font-weight: bold;"><i class="bi bi-receipt"></i> Sales Summary of POS B</h3>
             </div>
         </div>
         <form action="includes/search_code.php" method="POST">
@@ -126,13 +126,13 @@ if($_SESSION['usertype']=="cashier1" || $_SESSION['usertype']=="superadmin"){
                     <label for="searchNum" class="col-form-label">Sales Number:</label>
                 </div>
                 <div class="col-auto">
-                    <input type="search" id="searchNum" name="searchNum"class="form-control">
+                    <input type="search" id="searchNum" name="searchNum"class="form-control" placeholder="eg. 1234567890">                
                 </div>
                 <div class="col-auto">
-                    <button type="submit" id="search_pos_b" name="search_pos_b" class="btn-sm btn-danger">Search</button>
+                    <button type="submit" id="search_pos_b" name="search_pos_b" class="btn btn-sm btn-danger"><i class="bi bi-search"></i></button>
                 </div>
             </div>
-        </form>
+        </form>    
         <div class="row my-2 gy-5 gx-10 justify-content-center">
             <div class="col-lg-12 d-flex justify-content-center">
                 <table id="salesTable" class="table table-hover border-dark">
