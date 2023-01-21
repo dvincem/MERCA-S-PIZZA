@@ -1,6 +1,28 @@
 <?php 
     session_start();
     $grand_total = $_SESSION['grandtotal'];
+    include 'config.php';
+    if(isset($_POST['paynow'])){
+        $discountedamount= $_SESSION['discountedamount'];
+        $totaldiscount=$_SESSION['totaldiscount'];
+        $totalquantity=$_SESSION['totalquantity'];
+        $totalprice=$_SESSION['totalprice'];
+        $totalname=$_SESSION['totalname'];
+        $cash = $totalprice;
+        $change = 0;
+        $sql = "INSERT INTO sales_pos_a (ItemName, Price, Quantity, DiscountAmount, DiscountedAmount, CashFromCustomer, ChangeToTheCustomer ) VALUES ('$totalname','$totalprice','$totalquantity','$totaldiscount','$discountedamount','$cash','$change')";
+        if(mysqli_query($conn,$sql)){
+            echo '<script>alert("The Order has been Placed");</script>';
+            $sqldel = "DELETE FROM cart WHERE user_id='1'";
+            mysqli_query($conn,$sqldel);
+            echo '<script>window.location.href="../../../pos1.php";</script>';
+           
+        }
+        else{
+            echo '<script>alert("ERROR")</script>';
+        }
+
+    }
 ?>
 
 <!DOCTYPE html>
@@ -60,24 +82,17 @@
           <?php $balance = (10583 - $grand_total); ?>
           <!-- new main content thank you page -->
           <div class="main-content">
+            <form action="" method="post">
               <div class="content">
                   <h2>THANK YOU!</h2>
                   <h4>Payment Success.</h4>
                   <br>
                   <h4>Remaining Account Balance: ₱<?php echo $balance; ?></h4>
-                  <div id="btn1"><button onclick="popup()">PRINT TRANSACTION</button></div>
+                  <div id="btn1">
+                  <button type="submit" name="paynow">PRINT TRANSACTION</button>
+                </div>
 
-                  <script type="text/javascript">
-                    function popup()
-                    {
-                      swal({
-                            title: "UNDER MAINTENANCE",
-                            text: "not available at the moment",
-                            icon: "warning",
-                            button: "I understand",
-                          });
-                    }
-                  </script>
+  </form>
               </div>
           </div>
           <!-- new main content thank you page -->

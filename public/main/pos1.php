@@ -8,6 +8,11 @@ include 'config.php';
 session_start();
 if($_SESSION['usertype']=="cashier1" || $_SESSION['usertype']=="superadmin"){
 $user_id = 1;
+unset($_SESSION['discountedamount']);
+unset($_SESSION['totaldiscount']);
+unset($_SESSION['totalquantity']);
+unset($_SESSION['totalprice']);
+unset($_SESSION['totalname']);
 if(isset($_POST['add_to_cart'])){
 
    $product_name = $_POST['product_name'];
@@ -49,7 +54,29 @@ if(isset($_GET['delete_all'])){
    $message[] = 'All items has been removed succesfully!';
    //header('location:index.php');  -- header not needed anymore --
 }
-
+if(isset($_POST['checkout'])){
+   $cart_query1 = mysqli_query($conn, "SELECT * FROM `cart` WHERE user_id = '$user_id'") or die('query failed');
+   $discountedamount = 0;
+   $totaldiscount = 0;
+   $totalquantity =0;
+   $totalprice = 0;
+   $totalname = "";
+   if(mysqli_num_rows($cart_query1) > 0){
+       while($fetch_cart1 = mysqli_fetch_assoc($cart_query1)){
+         $totalquantity =  $totalquantity + $fetch_cart1['quantity'];
+         $totaldiscount = $totaldiscount + ($fetch_cart1['price'] * $fetch_cart1['discount']);
+         $totalprice = $totalprice + ($fetch_cart1['quantity']*$fetch_cart1['price']);
+         $discountedamount = $totalprice - $totaldiscount;
+         $totalname = $totalname." ".$fetch_cart1['name'].", ";
+       }
+       $_SESSION['discountedamount'] = $discountedamount;
+       $_SESSION['totaldiscount'] = $totaldiscount;
+       $_SESSION['totalquantity'] = $totalquantity;
+       $_SESSION['totalprice'] =$totalprice ;
+       $_SESSION['totalname'] = $totalname;
+      }
+   echo '<script>window.location.href="payment/index.php"</script>';
+}
 
 ?>                                       
 <!-- end of php code -->
@@ -179,10 +206,10 @@ if(isset($_GET['delete_all'])){
             </tr>
          </tbody>
          </table>
-
+         <form action="" method="post">
          <div class="cart-btn">  
-            <a id="checkout" href="payment/index.php" class="btn <?php echo ($grand_total > 1)?'':'disabled'; ?>">proceed to payment wall</a>
-
+            <button name="checkout" type="submit" id="checkout" class="btn <?php echo ($grand_total > 1)?'':'disabled'; ?>">proceed to payment wall</button>
+            </form>
          </div>
       </div>
       </div>
