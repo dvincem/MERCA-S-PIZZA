@@ -145,7 +145,7 @@
 
     function NoDiscButton() {
       NoDisc = 0;
-      CompNoDiscAmnt = NoDisc * .25; 
+      CompNoDiscAmnt = NoDisc * 0; 
       CompNoDiscedAmnt = NoDisc - CompNoDiscAmnt;
       DiscAmnt = document.getElementById('DiscAmnt').value= "₱ " + CompNoDiscAmnt + ".00";
       DiscedAmnt = document.getElementById('DiscedAmnt').value= "₱ " + CompNoDiscedAmnt + ".00";
@@ -291,7 +291,7 @@
         <h1> MERCA'S PIZZERIA ESTD 2022 | POS</h1> 
         <pre class="credits"> LABEL 12                    By: Angelica Joy Q. Glory     Terminal #17</pre>
         <div class="screen">
-            <form id="OrderDits" name="OrderDits" class="Summary" action="Wp3POS.php" method="POST">
+            <form id="OrderDits" name="OrderDits" class="Summary"  method="POST">
               <section>
                 <fieldset>
                   <label for="NameOfItem" class="dits">Name of an item:</label>
@@ -353,7 +353,7 @@
           </section>
         </form>
 
-        <form>
+        <form action="" method="post">
           <section>
             <div class=Calc-Container>
               <div class=Col-Enter>

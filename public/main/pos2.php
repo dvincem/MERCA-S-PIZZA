@@ -1,12 +1,28 @@
 <?PHP
+include "config.php";
 session_start();
 if($_SESSION['usertype']=="cashier2" || $_SESSION['usertype']=="superadmin"){
+  if(isset($_POST['enter'])){
+    $itemname = $_POST['NameOfItem'];
+    $amount = $_POST['TotAmt'];
+    $origamt = floatval($amount) + floatval($_POST['TotDisc']);
+    $qty = $_POST['TotQty'];
+    $disc = $_POST['TotDisc'];
+    $cash = $_POST['CashRndrd'];
+    $change = floatval($cash) - floatval($amount);
+    $insertsql = "INSERT INTO sales_pos_b(ItemName,Price,Quantity,DiscountAmount,DiscountedAmount,TotalQuantity, TotalDiscountGiven,TotalDiscountedAmount,CashFromCustomer,ChangeToTheCustomer) VALUES 
+    ('$itemname','$origamt','$qty','$disc','$amount','$qty','$disc','$amount','$cash','$change')";
+          $sqlinsert = mysqli_query($conn, $insertsql);
+          if($sqlinsert){
+            echo '<script>alert("Sales Added")</script>';
+            echo '<script>window.location.href="pos2.php"</script>';  
+          }
+          else{
+            echo '<script>alert("Unknown Error Occured! ")</script>';
+            echo '<script>window.location.href="pos2.php"</script>';  
+          }
+  }
 ?>
-
-
-
-
-
 <!doctype html>
 <html lang="en">
   <head>
@@ -124,18 +140,18 @@ if($_SESSION['usertype']=="cashier2" || $_SESSION['usertype']=="superadmin"){
         NoDisc = Qty*0;
         CompNoDiscAmnt = NoDisc * .25; 
         CompNoDiscedAmnt = NoDisc - CompNoDiscAmnt;
-        Total = document.getElementById('TotAmt').value= "₱ " + Subtotal + ".00";
+        Total = document.getElementById('TotAmt').value=Subtotal;
         TotalCompNoDiscAmnt = Subtotal;
-        TotalNoDisc = document.getElementById('TotDisc').value= "₱ " + CompNoDiscedAmnt + ".00";
+        TotalNoDisc = document.getElementById('TotDisc').value= CompNoDiscedAmnt ;
         TotalCompNoDiscedAmnt = CompNoDiscedAmnt;
       }
 
       else if (DiscAmnt => 1){
         TotalQty = document.getElementById('TotQty').value= Qty;
         TotalCompDiscedAmnt = CompDiscedAmnt;
-        Total = document.getElementById('TotAmt').value= "₱ " + TotalCompDiscedAmnt + ".00";
+        Total = document.getElementById('TotAmt').value=  TotalCompDiscedAmnt;
         TotalCompDiscAmnt = CompDiscAmnt;
-        TotalDisc = document.getElementById('TotDisc').value= "₱ " + CompDiscAmnt + ".00";
+        TotalDisc = document.getElementById('TotDisc').value= CompDiscAmnt ;
         
       }
     }
@@ -147,8 +163,8 @@ if($_SESSION['usertype']=="cashier2" || $_SESSION['usertype']=="superadmin"){
         NoDisc = Qty*0;
         CompNoDiscAmnt = NoDisc * .25; 
         CompNoDiscedAmnt = NoDisc - CompNoDiscAmnt;
-        Total = document.getElementById('TotAmt').value= "₱ " + Subtotal + ".00";
-        TotalNoDisc = document.getElementById('TotDisc').value= "₱ " + CompNoDiscedAmnt + ".00";
+        Total = document.getElementById('TotAmt').value=  Subtotal;
+        TotalNoDisc = document.getElementById('TotDisc').value= CompNoDiscedAmnt ;
       }
     }
     function AddButton() {
@@ -160,8 +176,8 @@ if($_SESSION['usertype']=="cashier2" || $_SESSION['usertype']=="superadmin"){
         AddNoDisc = AddTotalQty*0;
         AddCompNoDiscAmnt = (AddNoDisc * .25); 
         AddCompNoDiscedAmnt = (AddNoDisc - AddCompNoDiscAmnt);
-        AddTotal = document.getElementById('TotAmt').value= "₱ " + AddSubtotal + ".00";
-        AddTotalNoDisc = document.getElementById('TotDisc').value= "₱ " + AddCompNoDiscedAmnt + ".00";
+        AddTotal = document.getElementById('TotAmt').value=AddSubtotal;
+        AddTotalNoDisc = document.getElementById('TotDisc').value=  AddCompNoDiscedAmnt ;
       }
       else if (Total => "₱ " + TotalCompDiscedAmnt + ".00"){
         AddTotalQty = document.getElementById('TotQty').value= TotalQty + AddQty;
@@ -169,9 +185,9 @@ if($_SESSION['usertype']=="cashier2" || $_SESSION['usertype']=="superadmin"){
         AddCompDiscAmnt = (AddSubtotal * .25); 
         AddCompDiscedAmnt = (AddSubtotal - AddCompDiscAmnt);
         add1 = AddCompDiscedAmnt + TotalCompDiscedAmnt;
-        AddTotal = document.getElementById('TotAmt').value= "₱ " + add1 + ".00";
+        AddTotal = document.getElementById('TotAmt').value= add1 ;
         add2 = AddCompDiscAmnt + TotalCompDiscAmnt;
-        AddTotalDisc = document.getElementById('TotDisc').value= "₱ " + add2 + ".00";
+        AddTotalDisc = document.getElementById('TotDisc').value=   add2 ;
       }
       
     }
@@ -250,11 +266,11 @@ if($_SESSION['usertype']=="cashier2" || $_SESSION['usertype']=="superadmin"){
         <h1> MERCA'S PIZZERIA ESTD 2022 | POS</h1> 
         <pre class="credits"> LABEL 12                    By: Angelica Joy Q. Glory     Terminal #17</pre>
         <div class="screen">
-            <form id="OrderDits" name="OrderDits" class="Summary" action="Wp3POS.php" method="POST">
+        <form id="OrderDits" name="OrderDits" class="Summary"  method="POST">
               <section>
                 <fieldset>
                   <label for="NameOfItem" class="dits">Name of an item:</label>
-                  <input type="text" class="details" placeholder = "Pizza Name" id="NameItem" name="NameOfItem" disabled>
+                  <input type="text" class="details" placeholder = "Pizza Name" id="NameItem" name="NameOfItem" readonly>
                   <button type="button" class="btnn" onclick="AddButton()">ADD</button>
                   <button type="button" class="btn" onclick="ChangeButton(); ChangeButton1()">CHANGE</button><br>
 
@@ -265,58 +281,53 @@ if($_SESSION['usertype']=="cashier2" || $_SESSION['usertype']=="superadmin"){
                   <button type="button" class="btn" onclick="CalculateButton(); CalculateButton1()">CALCULATE</button><br>
 
                   <label for="price">Price: </label>
-                  <input type="text" class="Amntdetails" class="details" placeholder = "&#8369; 0.00" id="price" step="any" name="price" disabled>
+                  <input type="text" class="Amntdetails" class="details" placeholder = "&#8369; 0.00" id="price" step="any" name="price" readonly>
                   <input type="radio" id="DiscCard" name="Discount" value="DiscCard" onclick="DiscountButton()">
                   <label for="html" class="choices">With Disc. Card</label>
                   <button type="button" class="btn" onclick="NewButton(), NewButton2(), NewButton3()">NEW</button><br>
 
                   <label for="DiscAmnt">Discount Amount: </label>
-                  <input type="text" class="Amntdetails" placeholder = "&#8369; 0.00" id="DiscAmnt" name="DiscAmnts" disabled>
+                  <input type="text" class="Amntdetails" placeholder = "&#8369; 0.00" id="DiscAmnt" name="DiscAmnts" readonly>
                   <input type="radio" id="EmpDisc" name="Discount" value="EmpDisc" onclick="DiscountButton()">
                   <label for="html" class="choices">Employee Disc</label>
                   <button type="button" class="btn" onclick="CancelButton(), CancelButton2(), CancelButton3()">CANCEL</button><br>
 
                   <label for="DiscedAmnt">Discounted Amount: </label>
-                  <input type="text" class="Amntdetails" placeholder = "&#8369; 0.00" id="DiscedAmnt" name="DiscedAmnts" disabled>
+                  <input type="text" class="Amntdetails" placeholder = "&#8369; 0.00" id="DiscedAmnt" name="DiscedAmnts" readonly>
                   <input type="radio" id="NoDisc" name="Discount" value="NoDisc" onclick="NoDiscButton()">
                   <label for="html" class="choices">No Discount</label>
                   <button type="button" class="btn" onclick="close()">EXIT</button><br>
               
                 </fieldset>
               </section>
-            </form>
         </div>
 
-        <form id="Summary">
-          <section>
+
+          <section id="Summary">
             <fieldset>
               <legend>Summary</legend>
               <label for="TotQty">Total Quantity: </label>
-              <input type="text" class="SumAmntdetails" placeholder = "0" id="TotQty" name="TotQty" size="55" disabled><br>
+              <input type="text" class="SumAmntdetails" placeholder = "0" id="TotQty" name="TotQty" size="55" readonly><br>
               <label for="TotDisc">Total Amount: </label>
-              <input type="text" class="SumAmntdetails" placeholder = "&#8369; 0.00" id="TotAmt" name="TotAmt" size="55" disabled><br>
+              <input type="text" class="SumAmntdetails" placeholder = "&#8369; 0.00" id="TotAmt" name="TotAmt" size="55" readonly><br>
               <label for="TotDisc">Total Discount Given: </label>
-              <input type="text" class="SumAmntdetails" placeholder = "&#8369; 0.00" id="TotDisc" name="TotDisc" size="55" disabled><br>
+              <input type="text" class="SumAmntdetails" placeholder = "&#8369; 0.00" id="TotDisc" name="TotDisc" size="55" readonly><br>
 
             </fieldset>
           </section>
-        </form>
 
-        <form id="Transaction" name="Transaction" class="transact" action="Wp3POS.php" method="POST">
+        
           <section>
             <fieldset class="transact">
               <pre class="cash">   Cash Rendered:        Change:</pre>
               <input type="text" placeholder = "&#8369; 0.00" id="CashRndrd" name="CashRndrd" size="12" class="CashRcvd">
-              <input type="text" placeholder = "&#8369; 0.00" id="Change" name="Change" size="12" class="CashRcvd" disabled><br>
+              <input type="text" placeholder = "&#8369; 0.00" id="Change" name="Change" size="12" class="CashRcvd" readonly><br>
             </fieldset>
           </section>
-        </form>
-
-        <form>
           <section>
             <div class=Calc-Container>
               <div class=Col-Enter>
-                <input type="button" class="btnEnter" value="ENTER" onclick="Transaction.CashRndrd.value=eval(Transaction.CashRndrd.value)">
+                <input type="submit" class="btnEnter" name="enter"value="ENTER" onclick="Transaction.CashRndrd.value=eval(Transaction.CashRndrd.value)">
               </div>
               <table >
                 <tr class=row-Calc>

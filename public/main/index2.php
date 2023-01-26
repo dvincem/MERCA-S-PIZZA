@@ -102,11 +102,11 @@ if($_SESSION['usertype']=="cashier2" || $_SESSION['usertype']=="superadmin"){
       <?php }
       if($_SESSION['usertype']=="cashier2" || $_SESSION['usertype']=="superadmin"){
         ?>
-      <a href="index2.php">
+      <a href="index2.php" class="active">
       <i class="fas fa-link"></i>
         <span>POS B</span>
       </a>
-      <a href="../sales_pos_b.php" class="active">
+      <a href="../sales_pos_b.php">
       <i class="fas fa-stream"></i>
         <span>Sales POS B</span>
       </a>
