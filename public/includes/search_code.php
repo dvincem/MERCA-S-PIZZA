@@ -1,25 +1,23 @@
 <?php
     require 'config.php';
 
+    // POS A
     if (isset($_POST['search_pos_a'])) {       
         $salesNum = $_POST ['searchNum'];
         $query = "SELECT * FROM sales_pos_a WHERE SalesNumber = '$salesNum'";
         $run_query = mysqli_query($conn, $query) or die(mysqli_error($conn));
         if (mysqli_num_rows($run_query) > 0) {
             header("location: ../sales_pos_a.php?success&salesnum=".$salesNum."");
-            exit();
         }
         elseif (empty($salesNum)) {
             header("location: ../sales_pos_a.php?error1=empty");
-            exit();
         }
         else {
             header("location: ../sales_pos_a.php?error2=norecord");
-            exit();
         }
-        exit();
     }
 
+    // POS B
     if (isset($_POST['search_pos_b'])) {
         $salesNum = $_POST ['searchNum'];
         $query = "SELECT * FROM sales_pos_b WHERE SalesNumber = '$salesNum'";

@@ -24,6 +24,14 @@ if($_SESSION['usertype']=="cashier1" || $_SESSION['usertype']=="superadmin"){
     "https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js">
             </script>
         <link rel="stylesheet" href="css/main.min.css">
+        <script>
+            $(document).ready(function(){
+                $('table tr').click(function(){
+                    var id = $(this).attr('row_id');
+                    window.open("http://localhost/MERCAPIZZA/public/sales_a.php?id=" + id);
+                });
+            });
+        </script>
     </head>
     <nav class="navbar navbar-expand-md navbar-light">
         <div class="container-xxl">
@@ -164,6 +172,7 @@ if($_SESSION['usertype']=="cashier1" || $_SESSION['usertype']=="superadmin"){
                                         $discounted_amount = $row['DiscountedAmount'];
                                         $cash_from_customer = $row['CashFromCustomer'];
                                         $change_to_the_customer = $row['ChangeToTheCustomer'];
+                                        echo '<tr row_id="'.$sales_num.'">';
                                         echo '<th id="salesNum" scope="row">'.$sales_num.'</th>';
                                         echo '<td>'.$item_name.'</td>';
                                         echo '<td>'.$price.'</td>';
@@ -193,6 +202,7 @@ if($_SESSION['usertype']=="cashier1" || $_SESSION['usertype']=="superadmin"){
                                         $discounted_amount = $row['DiscountedAmount'];
                                         $cash_from_customer = $row['CashFromCustomer'];
                                         $change_to_the_customer = $row['ChangeToTheCustomer'];
+                                        echo '<tr row_id="'.$sales_num.'">';
                                         echo '<th id="salesNum" scope="row">'.$sales_num.'</th>';
                                         echo '<td>'.$item_name.'</td>';
                                         echo '<td>'.$price.'</td>';
@@ -222,6 +232,7 @@ if($_SESSION['usertype']=="cashier1" || $_SESSION['usertype']=="superadmin"){
                                         $discounted_amount = $row['DiscountedAmount'];
                                         $cash_from_customer = $row['CashFromCustomer'];
                                         $change_to_the_customer = $row['ChangeToTheCustomer'];
+                                        echo '<tr row_id="'.$sales_num.'">';
                                         echo '<th id="salesNum" scope="row">'.$sales_num.'</th>';
                                         echo '<td>'.$item_name.'</td>';
                                         echo '<td>'.$price.'</td>';
@@ -248,6 +259,7 @@ if($_SESSION['usertype']=="cashier1" || $_SESSION['usertype']=="superadmin"){
                                         $discounted_amount = $row['DiscountedAmount'];
                                         $cash_from_customer = $row['CashFromCustomer'];
                                         $change_to_the_customer = $row['ChangeToTheCustomer'];
+                                        echo '<tr row_id="'.$sales_num.'">';
                                         echo '<th id="salesNum" scope="row">'.$sales_num.'</th>';
                                         echo '<td>'.$item_name.'</td>';
                                         echo '<td>'.$price.'</td>';

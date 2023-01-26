@@ -152,42 +152,150 @@ if($_SESSION['usertype']=="hr" || $_SESSION['usertype']=="superadmin"){
     </tr>
   </thead>
   <tbody>
-    <?php 
-    $query = "SELECT * FROM payroll";
-    $run_query = mysqli_query($conn, $query) or die(mysqli_error($conn));
-    if (mysqli_num_rows($run_query) > 0){
-    while ($row = mysqli_fetch_array($run_query)){
-        $id = $row['payroll_id'];
-        $employeeid = $row['employeeid_fk'];
-        $query1 = "SELECT * FROM employee where id='$employeeid'";
-        $run_query1 = mysqli_query($conn, $query1) or die(mysqli_error($conn));
-        if (mysqli_num_rows($run_query1) > 0){
-         while ($fetch = mysqli_fetch_array($run_query1)){
-          $employeenumber = $fetch['employeenumber'];
-        $employeename = $fetch['employeename'];
-        $civilstatus = $fetch['civilstatus'];
-        $designation = $fetch['designation'];
-        $department = $fetch['department'];
-        $dependent = $fetch['dependent'];
-        $employeestatus = $fetch['employeestatus'];
-
-         }
+  <?php 
+      if (isset($_GET['empNum'])) {
+        $empNum = $_GET['empNum'];
+        $query= "SELECT * FROM employee WHERE employeenumber = '$empNum'";
+        $run_query = mysqli_query($conn, $query) or die(mysqli_error($conn));
+        if (mysqli_num_rows($run_query) > 0){
+        while ($row = mysqli_fetch_array($run_query)){
+            $id = $row['id'];
+            $query1 = "SELECT * FROM payroll where employeeid_fk='$id'";
+            $run_query1 = mysqli_query($conn, $query1) or die(mysqli_error($conn));
+            if (mysqli_num_rows($run_query1) > 0){
+              $query= "SELECT * FROM employee WHERE employeenumber = '$empNum'";
+              $run_query = mysqli_query($conn, $query) or die(mysqli_error($conn));
+              while ($fetch = mysqli_fetch_array($run_query)){
+                $employeenumber = $fetch['employeenumber'];
+                $employeename = $fetch['employeename'];
+                $civilstatus = $fetch['civilstatus'];
+                $designation = $fetch['designation'];
+                $department = $fetch['department'];
+                $dependent = $fetch['dependent'];
+                $employeestatus = $fetch['employeestatus'];
+                echo '<tr row_id="'.$id.'">';
+                echo '<th scope="row">'.$employeenumber.'</th>';
+                echo '<td>'.$employeename.'</td>';
+                echo '<td>'.$civilstatus.'</td>';
+                echo '<td>'.$designation.'</td>';
+                echo '<td>'.$department.'</td>';
+                echo '<td>'.$employeestatus.'</td>';
+                echo '<td>'.$dependent.'</td>';
+                echo '</tr>';
+                echo '</a>';
+              }
+            }
+            else {
+              echo '<script>window.location.href="payroll_report.php?error2=norecord"</script>';
+            }
+          } 
         }
-        echo '<tr row_id="'.$id.'">';
-        echo '<th scope="row">'.$employeenumber.'</th>';
-        echo '<td>'.$employeename.'</td>';
-        echo '<td>'.$civilstatus.'</td>';
-        echo '<td>'.$designation.'</td>';
-        echo '<td>'.$department.'</td>';
-        echo '<td>'.$employeestatus.'</td>';
-        echo '<td>'.$dependent.'</td>';
-        echo '</tr>';
-        echo '</a>';
-        ?>
-        </a>
-        <?php
-
-    }}
+      } // end if
+      elseif (isset($_GET['error1'])) {
+        $error1 = $_GET['error1'] == "empty";
+        echo '<script>alert("empty search")</script>';
+        echo '<script>alert("reloading page")</script>';
+        $query = "SELECT * FROM payroll";
+        $run_query = mysqli_query($conn, $query) or die(mysqli_error($conn));
+        if (mysqli_num_rows($run_query) > 0){
+        while ($row = mysqli_fetch_array($run_query)){
+            $employeeid = $row['employeeid_fk'];
+            $query1 = "SELECT * FROM employee where id='$employeeid'";
+            $run_query1 = mysqli_query($conn, $query1) or die(mysqli_error($conn));
+            if (mysqli_num_rows($run_query1) > 0){
+              while ($fetch = mysqli_fetch_array($run_query1)){
+                $employeenumber = $fetch['employeenumber'];
+                $employeename = $fetch['employeename'];
+                $civilstatus = $fetch['civilstatus'];
+                $designation = $fetch['designation'];
+                $department = $fetch['department'];
+                $dependent = $fetch['dependent'];
+                $employeestatus = $fetch['employeestatus'];
+                echo '<tr row_id="'.$employeeid.'">';
+                echo '<th scope="row">'.$employeenumber.'</th>';
+                echo '<td>'.$employeename.'</td>';
+                echo '<td>'.$civilstatus.'</td>';
+                echo '<td>'.$designation.'</td>';
+                echo '<td>'.$department.'</td>';
+                echo '<td>'.$employeestatus.'</td>';
+                echo '<td>'.$dependent.'</td>';
+                echo '</tr>';
+                echo '</a>';
+              }
+            }
+          } 
+        }
+      } // end elseif
+      elseif (isset($_GET['error2'])) {
+        $error2 = $_GET['error2'] == "norecord";
+        echo '<script>alert("no record found")</script>';
+        echo '<script>alert("reloading page")</script>';
+        $query = "SELECT * FROM payroll";
+        $run_query = mysqli_query($conn, $query) or die(mysqli_error($conn));
+        if (mysqli_num_rows($run_query) > 0){
+        while ($row = mysqli_fetch_array($run_query)){
+            $employeeid = $row['employeeid_fk'];
+            $query1 = "SELECT * FROM employee where id='$employeeid'";
+            $run_query1 = mysqli_query($conn, $query1) or die(mysqli_error($conn));
+            if (mysqli_num_rows($run_query1) > 0){
+              while ($fetch = mysqli_fetch_array($run_query1)){
+                $employeenumber = $fetch['employeenumber'];
+                $employeename = $fetch['employeename'];
+                $civilstatus = $fetch['civilstatus'];
+                $designation = $fetch['designation'];
+                $department = $fetch['department'];
+                $dependent = $fetch['dependent'];
+                $employeestatus = $fetch['employeestatus'];
+                echo '<tr row_id="'.$employeeid.'">';
+                echo '<th scope="row">'.$employeenumber.'</th>';
+                echo '<td>'.$employeename.'</td>';
+                echo '<td>'.$civilstatus.'</td>';
+                echo '<td>'.$designation.'</td>';
+                echo '<td>'.$department.'</td>';
+                echo '<td>'.$employeestatus.'</td>';
+                echo '<td>'.$dependent.'</td>';
+                echo '</tr>';
+                echo '</a>';
+              }
+            }
+          } 
+        }
+      } // end elseif    
+      else {
+        $query = "SELECT * FROM payroll";
+        $run_query = mysqli_query($conn, $query) or die(mysqli_error($conn));
+        if (mysqli_num_rows($run_query) > 0){
+        while ($row = mysqli_fetch_array($run_query)){
+            $employeeid = $row['employeeid_fk'];
+            $query1 = "SELECT * FROM employee where id='$employeeid'";
+            $run_query1 = mysqli_query($conn, $query1) or die(mysqli_error($conn));
+            if (mysqli_num_rows($run_query1) > 0){
+              while ($fetch = mysqli_fetch_array($run_query1)){
+                $employeenumber = $fetch['employeenumber'];
+                $employeename = $fetch['employeename'];
+                $civilstatus = $fetch['civilstatus'];
+                $designation = $fetch['designation'];
+                $department = $fetch['department'];
+                $dependent = $fetch['dependent'];
+                $employeestatus = $fetch['employeestatus'];
+                echo '<tr row_id="'.$employeeid.'">';
+                echo '<th scope="row">'.$employeenumber.'</th>';
+                echo '<td>'.$employeename.'</td>';
+                echo '<td>'.$civilstatus.'</td>';
+                echo '<td>'.$designation.'</td>';
+                echo '<td>'.$department.'</td>';
+                echo '<td>'.$employeestatus.'</td>';
+                echo '<td>'.$dependent.'</td>';
+                echo '</tr>';
+                echo '</a>';
+              }
+            }
+          } 
+        }
+      } // end else
+    ?>
+    <?php 
+    
     ?>
   
   </tbody>
